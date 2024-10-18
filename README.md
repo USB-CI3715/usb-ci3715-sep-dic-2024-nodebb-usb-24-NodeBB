@@ -1,3 +1,17 @@
+## Colaboradores
+
+*Henry Galue* 14-10373
+
+*Juan Cuevas* 19-10056
+
+*Jeamhowards Montiel* 19-10234
+
+*Miguel Salomón* 19-10274
+
+*Anya Marcano* 19-10336
+
+# NodeBB
+
 # ![NodeBB](public/images/sm-card.png)
 
 [![Workflow](https://github.com/CMU-313/NodeBB/actions/workflows/test.yaml/badge.svg)](https://github.com/CMU-313/NodeBB/actions/workflows/test.yaml)
