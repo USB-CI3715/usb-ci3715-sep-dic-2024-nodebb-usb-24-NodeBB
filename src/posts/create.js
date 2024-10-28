@@ -35,7 +35,10 @@ module.exports = function (Posts) {
 			tid: tid,
 			content: content,
 			timestamp: timestamp,
+			urgency: 0,
 		};
+
+		console.log(postData);
 
 		if (data.toPid) {
 			postData.toPid = data.toPid;
@@ -47,7 +50,10 @@ module.exports = function (Posts) {
 			postData.handle = data.handle;
 		}
 
-		let result = await plugins.hooks.fire('filter:post.create', { post: postData, data: data });
+		let result = await plugins.hooks.fire('filter:post.create', {
+			post: postData,
+			data: data,
+		});
 		postData = result.post;
 		await db.setObject(`post:${postData.pid}`, postData);
 
@@ -65,7 +71,10 @@ module.exports = function (Posts) {
 			Posts.uploads.sync(postData.pid),
 		]);
 
-		result = await plugins.hooks.fire('filter:post.get', { post: postData, uid: data.uid });
+		result = await plugins.hooks.fire('filter:post.get', {
+			post: postData,
+			uid: data.uid,
+		});
 		result.post.isMain = isMain;
 		plugins.hooks.fire('action:post.save', { post: _.clone(result.post) });
 		return result.post;
