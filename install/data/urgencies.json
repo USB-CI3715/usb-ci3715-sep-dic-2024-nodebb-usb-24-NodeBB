@@ -1,12 +1,21 @@
 [
     {
+        "name": "No Priority",
+        "description": "Issues that need attention but are not urgent",
+        "descriptionParsed": "<p>Issues that need attention but are not urgent</p>\n",
+        "bgColor": "#86ba4b",
+        "color": "#ffffff",
+        "icon" : "fa-exclamation-circle",
+        "order": 1
+    },
+    {
         "name": "High Priority",
         "description": "High priority issues that need immediate attention",
         "descriptionParsed": "<p>High priority issues that need immediate attention</p>\n",
         "bgColor": "#e95c5a",
         "color": "#ffffff",
         "icon" : "fa-exclamation-triangle",
-        "order": 1
+        "order": 2
     },
     {
         "name": "Medium Priority",
@@ -15,7 +24,7 @@
         "bgColor": "#fda34b",
         "color": "#ffffff",
         "icon" : "fa-exclamation-circle",
-        "order": 2
+        "order": 3
     },
     {
         "name": "Low Priority",
@@ -24,15 +33,6 @@
         "bgColor": "#59b3d0",
         "color": "#ffffff",
         "icon" : "fa-exclamation",
-        "order": 3
-    },
-    {
-        "name": "No Priority",
-        "description": "Issues that need attention but are not urgent",
-        "descriptionParsed": "<p>Issues that need attention but are not urgent</p>\n",
-        "bgColor": "#86ba4b",
-        "color": "#ffffff",
-        "icon" : "fa-exclamation-circle",
-        "order": 0
+        "order": 4
     }
 ]

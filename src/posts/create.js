@@ -10,6 +10,7 @@ const topics = require('../topics');
 const categories = require('../categories');
 const groups = require('../groups');
 const privileges = require('../privileges');
+// const urgency = require('../urgencies');
 
 module.exports = function (Posts) {
 	Posts.create = async function (data) {
@@ -19,6 +20,7 @@ module.exports = function (Posts) {
 		const content = data.content.toString();
 		const timestamp = data.timestamp || Date.now();
 		const isMain = data.isMain || false;
+		const urg_id = data.urg_id ? parseInt(data.urg_id, 10) : 1;
 
 		if (!uid && parseInt(uid, 10) !== 0) {
 			throw new Error('[[error:invalid-uid]]');
@@ -35,10 +37,8 @@ module.exports = function (Posts) {
 			tid: tid,
 			content: content,
 			timestamp: timestamp,
-			urgency: 0,
+			urg_id: urg_id,
 		};
-
-		console.log(postData);
 
 		if (data.toPid) {
 			postData.toPid = data.toPid;
@@ -60,6 +60,7 @@ module.exports = function (Posts) {
 		const topicData = await topics.getTopicFields(tid, ['cid', 'pinned']);
 		postData.cid = topicData.cid;
 
+		// Increment post count
 		await Promise.all([
 			db.sortedSetAdd('posts:pid', timestamp, postData.pid),
 			db.incrObjectField('global', 'postCount'),
@@ -67,6 +68,7 @@ module.exports = function (Posts) {
 			topics.onNewPostMade(postData),
 			categories.onNewPostMade(topicData.cid, topicData.pinned, postData),
 			groups.onNewPostMade(postData),
+			// urgency.onNewPostMade(postData, urg_id),
 			addReplyTo(postData, timestamp),
 			Posts.uploads.sync(postData.pid),
 		]);

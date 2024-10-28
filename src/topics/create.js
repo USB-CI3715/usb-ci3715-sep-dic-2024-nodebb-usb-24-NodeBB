@@ -122,6 +122,7 @@ module.exports = function (Topics) {
 		let postData = data;
 		postData.tid = tid;
 		postData.ip = data.req ? data.req.ip : null;
+		postData.urg_id = data.urg_id || 1;
 		postData.isMain = true;
 		postData = await posts.create(postData);
 		postData = await onNewPost(postData, data);

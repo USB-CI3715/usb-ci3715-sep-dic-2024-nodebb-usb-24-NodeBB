@@ -47,6 +47,7 @@ module.exports = function (Posts) {
 			post: editPostData,
 			data: data,
 			uid: data.uid,
+			urg_id: data.urg_id,
 		});
 
 		const [editor, topic] = await Promise.all([

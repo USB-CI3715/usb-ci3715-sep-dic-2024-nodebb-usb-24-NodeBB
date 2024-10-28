@@ -458,6 +458,27 @@ async function createCategories() {
 	}
 }
 
+async function createUgrencies() {
+	const Urgencies = require('./urgencies');
+	const db = require('./database');
+	const cids = await db.getSortedSetRange('urgencies:urg_id', 0, -1);
+	if (Array.isArray(cids) && cids.length) {
+		console.log(`Categories OK. Found ${cids.length} categories.`);
+		return;
+	}
+
+	console.log('No urgencies found, populating instance with default urgencies');
+
+	const default_urgencies = JSON.parse(
+		await fs.promises.readFile(path.join(__dirname, '../', 'install/data/urgencies.json'), 'utf8')
+	);
+	for (const categoryData of default_urgencies) {
+		// eslint-disable-next-line no-await-in-loop
+		const p = await Urgencies.create(categoryData);
+		console.log(p);
+	}
+}
+
 async function createMenuItems() {
 	const db = require('./database');
 
@@ -584,6 +605,7 @@ install.setup = async function () {
 		await setupDefaultConfigs();
 		await enableDefaultTheme();
 		await createCategories();
+		await createUgrencies();
 		await createDefaultUserGroups();
 		const adminInfo = await createAdministrator();
 		await createGlobalModeratorsGroup();
