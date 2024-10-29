@@ -30,32 +30,11 @@ Urgencies.getUrgencyById = async function (data) {
 	const urgency = urgencies[0];
 	data.urgency = urgency;
 
-	const promises = [
-		Urgencies.getCategoryTopics(data),
-		Urgencies.getTopicCount(data),
-		Urgencies.getWatchState([data.urg_id], data.uid),
-	];
-
-	if (urgency.parentUrgid) {
-		promises.push(Urgencies.getCategoryData(urgency.parentUrgid));
-	}
-	const [topics, topicCount, watchState, , parent] = await Promise.all(promises);
-
-	urgency.topics = topics.topics;
-	urgency.nextStart = topics.nextStart;
-	urgency.topic_count = topicCount;
-	urgency.isWatched = watchState[0] === Urgencies.watchStates.watching;
-	urgency.isTracked = watchState[0] === Urgencies.watchStates.tracking;
-	urgency.isNotWatched = watchState[0] === Urgencies.watchStates.notwatching;
-	urgency.isIgnored = watchState[0] === Urgencies.watchStates.ignoring;
-	urgency.parent = parent;
-
-	calculateTopicPostCount(urgency);
 	const result = await plugins.hooks.fire('filter:urgency.get', {
 		urgency: urgency,
 		...data,
 	});
-	return { ...result.category };
+	return { ...result.urgency };
 };
 
 Urgencies.onNewPostMade = async function (postData, urg_id) {
@@ -74,7 +53,7 @@ Urgencies.getAllUrgIdsFromSet = async function (key) {
 	if (urgIds) {
 		return urgIds.slice();
 	}
-
+	console.log('getAllUrgIdsFromSet', key);
 	urgIds = await db.getSortedSetRange(key, 0, -1);
 	urgIds = urgIds.map(urg_id => parseInt(urg_id, 10));
 	cache.set(key, urgIds);
@@ -91,25 +70,25 @@ Urgencies.getModerators = async function (urg_id) {
 	return await user.getUsersFields(uids[0], ['uid', 'username', 'userslug', 'picture']);
 };
 
-Urgencies.getUrgencies = async function (urg_id) {
-	if (!Array.isArray(urg_id)) {
-		throw new Error('[[error:invalid-urg_id]]');
+Urgencies.getUrgencies = async function (urg_ids) {
+	if (!Array.isArray(urg_ids)) {
+		throw new Error(`${urg_ids} is an invalid urg_id`);
 	}
 
-	if (!urg_id.length) {
+	if (!urg_ids.length) {
 		return [];
 	}
 
-	const [categories, tagWhitelist] = await Promise.all([
-		Urgencies.getCategoriesData(urg_id),
-		Urgencies.getTagWhitelist(urg_id),
+	const [urgencies, tagWhitelist] = await Promise.all([
+		Urgencies.getUrgenciesData(urg_ids),
+		Urgencies.getTagWhitelist(urg_ids),
 	]);
-	categories.forEach((urgency, i) => {
+	urgencies.forEach((urgency, i) => {
 		if (urgency) {
 			urgency.tagWhitelist = tagWhitelist[i];
 		}
 	});
-	return categories;
+	return urgencies;
 };
 
 Urgencies.setUnread = async function (tree, urg_id, uid) {
@@ -200,7 +179,7 @@ Urgencies.getParents = async function (urg_ids) {
 	if (!parentUrgids.length) {
 		return urg_ids.map(() => null);
 	}
-	const parentData = await Urgencies.getCategoriesData(parentUrgids);
+	const parentData = await Urgencies.getUrgenciesData(parentUrgids);
 	const urgidToParent = _.zipObject(parentUrgids, parentData);
 	return urgenciesData.map(category => urgidToParent[category.parentUrgid]);
 };
@@ -329,7 +308,7 @@ Urgencies.buildForSelectAll = async function (fields) {
 };
 
 async function getSelectData(cids, fields) {
-	const categoryData = await Urgencies.getCategoriesData(cids);
+	const categoryData = await Urgencies.getUrgenciesData(cids);
 	const tree = Urgencies.getTree(categoryData);
 	return Urgencies.buildForSelectUrgencies(tree, fields);
 }

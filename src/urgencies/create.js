@@ -11,10 +11,10 @@ const cache = require('../cache');
 
 module.exports = function (Urgencies) {
 	Urgencies.create = async function (data) {
-		const parentCid = data.parentCid ? data.parentCid : 0;
+		const parentUrgid = data.parentUrgid ? data.parentUrgid : 0;
 		const [urgentId, firstChild] = await Promise.all([
 			db.incrObjectField('global', 'nextUrgId'),
-			db.getSortedSetRangeWithScores(`urg_id:${parentCid}:children`, 0, 0),
+			db.getSortedSetRangeWithScores(`urg_id:${parentUrgid}:children`, 0, 0),
 		]);
 
 		data.name = String(data.name || `Urgency ${urgentId}`);
@@ -32,7 +32,7 @@ module.exports = function (Urgencies) {
 			bgColor: data.bgColor || colours[0],
 			color: data.color || colours[1],
 			slug: slug,
-			parentCid: parentCid,
+			parentUrgid: parentUrgid,
 			topic_count: 0,
 			post_count: 0,
 			disabled: data.disabled ? 1 : 0,
@@ -79,30 +79,26 @@ module.exports = function (Urgencies) {
 		});
 		urgencyInfo = result.urgency;
 
-		await db.setObject(`urgency:${urgencyInfo.cid}`, urgencyInfo);
+		await db.setObject(`urgency:${urgencyInfo.urg_id}`, urgencyInfo);
 		if (!urgencyInfo.descriptionParsed) {
-			await Urgencies.parseDescription(urgencyInfo.cid, urgencyInfo.description);
+			await Urgencies.parseDescription(urgencyInfo.urg_id, urgencyInfo.description);
 		}
 
 		await db.sortedSetAddBulk([
-			['urgencies:urg_id', urgencyInfo.order, urgencyInfo.cid],
-			[`urg_id:${parentCid}:children`, urgencyInfo.order, urgencyInfo.cid],
-			['urgencies:name', 0, `${data.name.slice(0, 200).toLowerCase()}:${urgencyInfo.cid}`],
+			['urgencies:urg_id', urgencyInfo.order, urgencyInfo.urg_id],
+			[`urg_id:${parentUrgid}:children`, urgencyInfo.order, urgencyInfo.urg_id],
+			['urgencies:name', 0, `${data.name.slice(0, 200).toLowerCase()}:${urgencyInfo.urg_id}`],
 		]);
 
-		// await privileges.categories.give(result.defaultPrivileges, urgencyInfo.cid, 'registered-users');
-		// await privileges.categories.give(result.modPrivileges, urgencyInfo.cid, ['administrators', 'Global Moderators']);
-		// await privileges.categories.give(result.guestPrivileges, urgencyInfo.cid, ['guests', 'spiders']);
+		cache.del('urgencies:urg_id');
+		await clearParentCategoryCache(parentUrgid);
 
-		cache.del('urgencies:cid');
-		await clearParentCategoryCache(parentCid);
-
-		if (data.cloneFromCid && parseInt(data.cloneFromCid, 10)) {
-			urgencyInfo = await Urgencies.copySettingsFrom(data.cloneFromCid, urgencyInfo.cid, !data.parentCid);
+		if (data.cloneFromUrgid && parseInt(data.cloneFromUrgid, 10)) {
+			urgencyInfo = await Urgencies.copySettingsFrom(data.cloneFromUrgid, urgencyInfo.urg_id, !data.parentUrgid);
 		}
 
 		if (data.cloneChildren) {
-			await duplicateCategoriesChildren(urgencyInfo.cid, data.cloneFromCid, data.uid);
+			await duplicateCategoriesChildren(urgencyInfo.urg_id, data.cloneFromUrgid, data.uid);
 		}
 
 		plugins.hooks.fire('action:urgency.create', { category: urgencyInfo });
@@ -134,8 +130,8 @@ module.exports = function (Urgencies) {
 		children = children[0];
 
 		children.forEach((child) => {
-			child.parentCid = parentUrgid;
-			child.cloneFromCid = child.cid;
+			child.parentUrgid = parentUrgid;
+			child.cloneFromUrgid = child.urg_id;
 			child.cloneChildren = true;
 			child.name = utils.decodeHTMLEntities(child.name);
 			child.description = utils.decodeHTMLEntities(child.description);
