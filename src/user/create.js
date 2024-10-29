@@ -40,8 +40,13 @@ module.exports = function (User) {
 		}
 	}
 
+
 	async function create(data) {
 		const timestamp = data.timestamp || Date.now();
+
+		if (!data.rol) {
+			throw new Error('No hay rol', JSON.stringify(data));
+		}
 
 		let userData = {
 			username: data.username,
@@ -49,6 +54,7 @@ module.exports = function (User) {
 			joindate: timestamp,
 			lastonline: timestamp,
 			status: 'online',
+			rol: data.rol,
 		};
 		['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
 			if (data[field]) {
