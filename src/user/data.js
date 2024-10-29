@@ -25,7 +25,7 @@ module.exports = function (User) {
 		'aboutme', 'signature', 'uploadedpicture', 'profileviews', 'reputation',
 		'postcount', 'topiccount', 'lastposttime', 'banned', 'banned:expire',
 		'status', 'flags', 'followerCount', 'followingCount', 'cover:url',
-		'cover:position', 'groupTitle', 'mutedUntil', 'mutedReason',
+		'cover:position', 'groupTitle', 'mutedUntil', 'mutedReason', 'rol',
 	];
 
 	User.guestData = {
@@ -68,6 +68,9 @@ module.exports = function (User) {
 		} else {
 			// Never allow password retrieval via this method
 			fields = fields.filter(value => value !== 'password');
+			if (!fields.includes('rol')) {
+				fields.push('rol');
+			}
 		}
 
 		const users = await db.getObjectsFields(uniqueUids.map(uid => `user:${uid}`), fields);
