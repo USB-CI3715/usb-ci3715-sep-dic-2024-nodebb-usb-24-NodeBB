@@ -179,3 +179,8 @@ Posts.getReplies = async (req, res) => {
 
 	helpers.formatApiResponse(200, res, { replies });
 };
+
+Posts.getUrgentPosts = async (req, res) => {
+	const urgentPosts = await posts.getUrgentPosts(req.uid);
+	helpers.formatApiResponse(200, res, urgentPosts);
+};

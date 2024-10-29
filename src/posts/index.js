@@ -53,6 +53,14 @@ Posts.getPostsByPids = async function (pids, uid) {
 	return data.posts.filter(Boolean);
 };
 
+Posts.getUrgentPosts = async function (uid) {
+	const pids = await db.getSortedSetRevRange('posts:urgent', 0, 100);
+	const posts = await Posts.getPostsByPids(pids, uid);
+	return posts
+		.filter(post => parseInt(post.urg_id, 10) > 1)
+		.toSorted((a, b) => parseInt(a.urg_id, 10) - parseInt(b.urg_id, 10));
+};
+
 Posts.getPostSummariesFromSet = async function (set, uid, start, stop) {
 	let pids = await db.getSortedSetRevRange(set, start, stop);
 	pids = await privileges.posts.filter('topics:read', pids, uid);
