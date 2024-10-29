@@ -33,9 +33,25 @@ usersAPI.create = async function (caller, data) {
 	if (!data) {
 		throw new Error('[[error:invalid-data]]');
 	}
+
+	if (!data.rol) {
+		data.rol = 'student';
+	}
+	
 	await hasAdminPrivilege(caller.uid, 'users');
 
 	const uid = await user.create(data);
+
+	// If the user has student role, add to the student group
+
+	if (data.rol === 'student') {
+		await groups.join('Estudiantes', uid);
+	}
+
+	if (data.rol === 'professor') {
+		await groups.join('Profesores', uid);
+	}
+
 	return await user.getUserData(uid);
 };
 
