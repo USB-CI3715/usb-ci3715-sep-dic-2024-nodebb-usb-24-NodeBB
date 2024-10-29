@@ -17,6 +17,7 @@ const slugify = require('../slugify');
 const helpers = require('./helpers');
 const privileges = require('../privileges');
 const sockets = require('../socket.io');
+const groups = require('../groups');
 
 const authenticationController = module.exports;
 
@@ -51,6 +52,14 @@ async function registerAndLoginUser(req, res, userData) {
 	if (res.locals.processLogin) {
 		await authenticationController.doLogin(req, uid);
 	}
+	if (userData.rol === 'student') {
+		await groups.join('Estudiantes', uid);
+	}
+
+	if (userData.rol === 'professor') {
+		await groups.join('Profesores', uid);
+	}
+
 
 	// Distinguish registrations through invites from direct ones
 	if (userData.token) {
@@ -106,8 +115,13 @@ authenticationController.register = async function (req, res) {
 
 		res.locals.processLogin = true; // set it to false in plugin if you wish to just register only
 		await plugins.hooks.fire('filter:register.check', { req: req, res: res, userData: userData });
-
+		// Verify if userData.rol exists
+		if (!userData.rol) {
+			userData.rol = 'professor';
+		}
+		
 		const data = await registerAndLoginUser(req, res, userData);
+		
 		if (data) {
 			if (data.uid && req.body.userLang) {
 				await user.setSetting(data.uid, 'userLang', req.body.userLang);
