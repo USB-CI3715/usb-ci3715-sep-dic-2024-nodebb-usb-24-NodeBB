@@ -53,7 +53,6 @@ Urgencies.getAllUrgIdsFromSet = async function (key) {
 	if (urgIds) {
 		return urgIds.slice();
 	}
-	console.log('getAllUrgIdsFromSet', key);
 	urgIds = await db.getSortedSetRange(key, 0, -1);
 	urgIds = urgIds.map(urg_id => parseInt(urg_id, 10));
 	cache.set(key, urgIds);
