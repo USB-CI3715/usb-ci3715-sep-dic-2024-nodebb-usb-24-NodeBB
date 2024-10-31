@@ -527,6 +527,34 @@ usersAPI.confirmEmail = async (caller, { uid, email, sessionId }) => {
 	return false;
 };
 
+/**
+ * Get the role of a user by their UID.
+ *
+ * @async
+ * @function getRolByUID
+ * @memberof usersAPI
+ * @param {Object} caller - The object representing the caller.
+ * @param {number} caller.uid - The UID of the caller making the request.
+ * @param {Object} params - The parameters object.
+ * @param {number} params.uid - The UID of the user whose role is being requested.
+ * @returns {Promise<string>} The role of the user.
+ * @throws {Error} If the caller does not have the privilege to view users.
+ * @throws {Error} If the user does not exist.
+ */
+usersAPI.getRolByUID = async (caller, { uid }) => {
+    const canView = await privileges.global.can('view:users', caller.uid);
+    if (!canView) {
+        throw new Error('[[error:no-privileges]]');
+    }
+
+    let userData = await user.getUserData(uid);
+    if (!userData) {
+        throw new Error('[[error:no-user]]');
+    }
+
+    return userData.rol;
+}
+
 async function isPrivilegedOrSelfAndPasswordMatch(caller, data) {
 	const { uid } = caller;
 	const isSelf = parseInt(uid, 10) === parseInt(data.uid, 10);
