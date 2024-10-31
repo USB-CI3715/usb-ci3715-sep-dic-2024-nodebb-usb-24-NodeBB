@@ -52,6 +52,7 @@ async function registerAndLoginUser(req, res, userData) {
 	if (res.locals.processLogin) {
 		await authenticationController.doLogin(req, uid);
 	}
+	// Join the user to the default group, if they are a student or professor
 	if (userData.rol === 'student') {
 		await groups.join('Estudiantes', uid);
 	}

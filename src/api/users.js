@@ -43,11 +43,11 @@ usersAPI.create = async function (caller, data) {
 	const uid = await user.create(data);
 
 	// If the user has student role, add to the student group
-
 	if (data.rol === 'student') {
 		await groups.join('Estudiantes', uid);
 	}
 
+	// If the user has professor role, add to the professor group
 	if (data.rol === 'professor') {
 		await groups.join('Profesores', uid);
 	}
