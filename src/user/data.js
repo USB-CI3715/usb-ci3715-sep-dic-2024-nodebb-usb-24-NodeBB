@@ -68,6 +68,7 @@ module.exports = function (User) {
 		} else {
 			// Never allow password retrieval via this method
 			fields = fields.filter(value => value !== 'password');
+			// Ensure that the 'rol' field is always included by default
 			if (!fields.includes('rol')) {
 				fields.push('rol');
 			}
