@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+    // Create the group 'Estudiantes' by default
     name: 'Creating Estudiantes group',
     timestamp: Date.UTC(2024, 10, 28), 
     method: async function () {
