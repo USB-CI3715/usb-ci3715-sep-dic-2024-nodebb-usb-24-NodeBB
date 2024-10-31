@@ -70,6 +70,14 @@ NodeBB is licensed under the **GNU General Public License v3 (GPL-3)** (http://w
 
 Interested in a sublicense agreement for use of NodeBB in a non-free/restrictive environment? Contact us at sales@nodebb.org.
 
+## Team Members
+
+* Miguel Ángel Arturo Gordillo Arismendi 18-10807
+* Kevin Jesus Oporto Hernandez           13-11007
+* Felix Ramon Arnos Navarro              15-10088
+* Néstor Jesús Herrera Uribe             18-10796
+* Kevin Jhon Briceño Manzanilla          15-11661
+
 ## More Information/Links
 
 * [Demo](https://try.nodebb.org)
