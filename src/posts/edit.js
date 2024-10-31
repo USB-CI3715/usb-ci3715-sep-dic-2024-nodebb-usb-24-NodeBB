@@ -37,6 +37,8 @@ module.exports = function (Posts) {
 
 		const oldContent = postData.content; // for diffing purposes
 		const editPostData = getEditPostData(data, topicData, postData);
+		const urg_id = data.urg_id || postData.urg_id;
+		editPostData.urg_id = urg_id;
 
 		if (data.handle) {
 			editPostData.handle = data.handle;
@@ -47,7 +49,7 @@ module.exports = function (Posts) {
 			post: editPostData,
 			data: data,
 			uid: data.uid,
-			urg_id: data.urg_id,
+			urg_id: urg_id,
 		});
 
 		const [editor, topic] = await Promise.all([
@@ -64,6 +66,7 @@ module.exports = function (Posts) {
 			await Posts.diffs.save({
 				pid: data.pid,
 				uid: data.uid,
+				urg_id: data.urg_id || postData.urg_id,
 				oldContent: oldContent,
 				newContent: data.content,
 				edited: editPostData.edited,
@@ -77,6 +80,7 @@ module.exports = function (Posts) {
 
 		const returnPostData = { ...postData, ...result.post };
 		returnPostData.cid = topic.cid;
+		returnPostData.urg_id = data.urg_id;
 		returnPostData.topic = topic;
 		returnPostData.editedISO = utils.toISOString(editPostData.edited);
 		returnPostData.changed = contentChanged;
@@ -90,7 +94,7 @@ module.exports = function (Posts) {
 		});
 		await topics.syncBacklinks(returnPostData);
 
-		plugins.hooks.fire('action:post.edit', { post: _.clone(returnPostData), data: data, uid: data.uid });
+		plugins.hooks.fire('action:post.edit', { post: _.clone(returnPostData), data: data, uid: data.uid, urg_id: data.urg_id });
 
 		require('./cache').del(String(postData.pid));
 		pubsub.publish('post:edit', String(postData.pid));
@@ -117,6 +121,7 @@ module.exports = function (Posts) {
 				isMainPost: false,
 				renamed: false,
 				tagsupdated: false,
+				urg_id: data.urg_id,
 			};
 		}
 
@@ -126,6 +131,7 @@ module.exports = function (Posts) {
 			uid: postData.uid,
 			mainPid: data.pid,
 			timestamp: rescheduling(data, topicData) ? data.timestamp : topicData.timestamp,
+			urg_id: data.urg_id,
 		};
 		if (title) {
 			newTopicData.title = title;
@@ -147,6 +153,7 @@ module.exports = function (Posts) {
 			req: data.req,
 			topic: newTopicData,
 			data: data,
+			urg_id: data.urg_id,
 		});
 		await db.setObject(`topic:${tid}`, results.topic);
 		if (tagsupdated) {
@@ -161,7 +168,7 @@ module.exports = function (Posts) {
 		newTopicData.tags = data.tags;
 		newTopicData.oldTitle = topicData.title;
 		const renamed = title && translator.escape(validator.escape(String(title))) !== topicData.title;
-		plugins.hooks.fire('action:topic.edit', { topic: newTopicData, uid: data.uid });
+		plugins.hooks.fire('action:topic.edit', { topic: newTopicData, uid: data.uid, urg_id: data.urg_id });
 		return {
 			tid: tid,
 			cid: newTopicData.cid,
@@ -175,6 +182,7 @@ module.exports = function (Posts) {
 			tags: tags,
 			oldTags: topicData.tags,
 			rescheduled: rescheduling(data, topicData),
+			urg_id: data.urg_id,
 		};
 	}
 

@@ -54,7 +54,7 @@ Posts.getPostsByPids = async function (pids, uid) {
 };
 
 Posts.getUrgentPosts = async function (uid) {
-	const pids = await db.getSortedSetRevRange('posts:urgent', 0, 100);
+	const pids = await db.getSortedSetRevRange('posts:pid', 0, 100);
 	const posts = await Posts.getPostsByPids(pids, uid);
 	return posts
 		.filter(post => parseInt(post.urg_id, 10) > 1)
