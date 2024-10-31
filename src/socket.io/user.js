@@ -134,6 +134,21 @@ SocketUser.getUserByEmail = async function (socket, email) {
 	return await userController.getUserDataByField(socket.uid, 'email', email);
 };
 
+/**
+ * Get the role of a user by their UID via a socket connection.
+ *
+ * @async
+ * @function getUserRolByUID
+ * @memberof SocketUser
+ * @param {Object} socket - The socket object.
+ * @param {string} socket.uid - The UID of the user making the request.
+ * @param {string} uid - The UID of the user whose role is being requested.
+ * @returns {Promise<string>} The role of the user.
+ */
+SocketUser.getUserRolByUID = async function (socket, uid) {
+    return await userController.getUserRolByUID(socket.uid, uid);
+};
+
 SocketUser.setModerationNote = async function (socket, data) {
 	if (!socket.uid || !data || !data.uid || !data.note) {
 		throw new Error('[[error:invalid-data]]');
