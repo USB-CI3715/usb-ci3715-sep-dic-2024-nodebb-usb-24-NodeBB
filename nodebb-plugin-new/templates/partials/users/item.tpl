@@ -3,6 +3,7 @@
 	<div class="d-flex flex-column text-truncate">
 		<div class="fw-semibold text-truncate" title="{./displayname}">{./displayname}</div>
 		<div class="text-xs text-muted text-truncate">@{./username}</div>
+		<div class="text-xs text-muted text-truncate">Rol: Profesor</div>
 
 		{{{ if section_online }}}
 		<div class="text-xs text-muted text-truncate">
