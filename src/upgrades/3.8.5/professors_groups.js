@@ -17,6 +17,7 @@ module.exports = {
             hidden: 0,
             private: 1,
             disableJoinRequests: 1,
+            disableLeave: 1,
         });
         await groups.show('Profesores');
     },
