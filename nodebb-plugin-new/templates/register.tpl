@@ -10,12 +10,12 @@
 
 			<div class="col-12 col-md-5 col-lg-3 px-md-0">
 				<div class="register-block">
-					<form component="register/local" class="d-flex flex-column gap-3" role="form" action="{config.relative_path}/register" method="post">
+					<form component="register/local" class="d-flex flex-column gap-3" rol="form" action="{config.relative_path}/register" method="post">
 						
 						<!-- Selector de Rol -->
 						<div class="mb-2 d-flex flex-column gap-2">
-							<label for="role">[[register:Rol]]</label>
-							<select class="form-control" name="role" id="role" aria-required="true">
+							<label for="rol">[[register:Rol]]</label>
+							<select class="form-control" name="rol" id="rol" aria-required="true">
 								<option value="student">[[register:Estudiante]]</option>
 								<option value="professor">[[register:Profesor]]</option>
 							</select>
