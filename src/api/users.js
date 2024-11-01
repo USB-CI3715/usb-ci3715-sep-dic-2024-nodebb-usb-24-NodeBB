@@ -37,7 +37,7 @@ usersAPI.create = async function (caller, data) {
 	if (!data.rol) {
 		data.rol = 'student';
 	}
-	
+
 	await hasAdminPrivilege(caller.uid, 'users');
 
 	const uid = await user.create(data);
@@ -542,18 +542,18 @@ usersAPI.confirmEmail = async (caller, { uid, email, sessionId }) => {
  * @throws {Error} If the user does not exist.
  */
 usersAPI.getRolByUID = async (caller, { uid }) => {
-    const canView = await privileges.global.can('view:users', caller.uid);
-    if (!canView) {
-        throw new Error('[[error:no-privileges]]');
-    }
+	const canView = await privileges.global.can('view:users', caller.uid);
+	if (!canView) {
+		throw new Error('[[error:no-privileges]]');
+	}
 
-    let userData = await user.getUserData(uid);
-    if (!userData) {
-        throw new Error('[[error:no-user]]');
-    }
+	const userData = await user.getUserData(uid);
+	if (!userData) {
+		throw new Error('[[error:no-user]]');
+	}
 
-    return userData.rol;
-}
+	return userData.rol;
+};
 
 async function isPrivilegedOrSelfAndPasswordMatch(caller, data) {
 	const { uid } = caller;

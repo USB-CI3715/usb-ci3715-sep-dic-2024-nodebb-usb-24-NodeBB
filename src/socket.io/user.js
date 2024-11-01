@@ -146,7 +146,7 @@ SocketUser.getUserByEmail = async function (socket, email) {
  * @returns {Promise<string>} The role of the user.
  */
 SocketUser.getUserRolByUID = async function (socket, uid) {
-    return await userController.getUserRolByUID(socket.uid, uid);
+	return await userController.getUserRolByUID(socket.uid, uid);
 };
 
 SocketUser.setModerationNote = async function (socket, data) {

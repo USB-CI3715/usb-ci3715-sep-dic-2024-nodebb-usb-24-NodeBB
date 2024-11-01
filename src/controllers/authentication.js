@@ -120,9 +120,9 @@ authenticationController.register = async function (req, res) {
 		if (!userData.rol) {
 			userData.rol = 'professor';
 		}
-		
+
 		const data = await registerAndLoginUser(req, res, userData);
-		
+
 		if (data) {
 			if (data.uid && req.body.userLang) {
 				await user.setSetting(data.uid, 'userLang', req.body.userLang);

@@ -10,7 +10,6 @@ const plugins = require('../plugins');
 const groups = require('../groups');
 const meta = require('../meta');
 const analytics = require('../analytics');
-const privsAdmin = require('../privileges/admin');
 
 module.exports = function (User) {
 	User.create = async function (data) {
@@ -132,7 +131,7 @@ module.exports = function (User) {
 		if (data.rol === 'professor') {
 			await groups.join('Global Moderators', userData.uid);
 		}
-		
+
 		plugins.hooks.fire('action:user.create', { user: userData, data: data });
 		return userData.uid;
 	}
