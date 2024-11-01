@@ -61,6 +61,24 @@ define('forum/topic/threadTools', [
 			return false;
 		});
 
+		topicContainer.on('click', '[component="topic/mark-important"]', function () {
+			const btn = $(this);
+		
+			// Alterna la clase 'active' para cambiar el estilo del botón
+			btn.toggleClass('active');
+			console.log('Marcado como importante');
+		
+			// Realiza la acción de marcar como importante (puedes ajustar el endpoint si es necesario)
+			// topicCommand('put', '/important', undefined, () => {
+				// Muestra un mensaje de éxito, se debe colocar en el idioma que corresponda
+				// Por ejemplo:
+				// "mark-important": {
+				// 	"success": "Topic marked as important successfully!"
+				// }
+				// alerts.success('[[topic:mark-important.success]]');
+			// });
+		});		
+
 		topicContainer.on('click', '[component="topic/mark-unread"]', function () {
 			topicCommand('del', '/read', undefined, () => {
 				if (app.previousUrl && !app.previousUrl.match('^/topic')) {
