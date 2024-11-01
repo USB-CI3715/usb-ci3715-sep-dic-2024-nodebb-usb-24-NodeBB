@@ -73,7 +73,12 @@ body.template-topic {
 			}
 		}
 	}
-
+	/* Estilo para el ícono de estrella en mensajes urgentes */
+	.fa-star.text-warning {
+		color: #f0ad4e; /* Ajusta a tu tono de amarillo preferido */
+		font-size: 1.2em; /* Cambia el tamaño según tus preferencias */
+		margin-right: 4px; /* Espaciado opcional alrededor del icono */
+	}
 	.quick-reply {
 		@include topic-avatars();
 	}
