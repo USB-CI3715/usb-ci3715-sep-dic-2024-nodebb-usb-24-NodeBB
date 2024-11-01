@@ -41,6 +41,7 @@ module.exports = function (User) {
 	}
 
 	async function create(data) {
+
 		const timestamp = data.timestamp || Date.now();
 
 		let userData = {
@@ -49,6 +50,7 @@ module.exports = function (User) {
 			joindate: timestamp,
 			lastonline: timestamp,
 			status: 'online',
+			isProfessor: data.isProfessor == 'on'
 		};
 		['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
 			if (data[field]) {
