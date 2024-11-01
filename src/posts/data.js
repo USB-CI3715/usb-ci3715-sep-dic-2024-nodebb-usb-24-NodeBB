@@ -2,6 +2,7 @@
 
 const db = require('../database');
 const plugins = require('../plugins');
+const { getUrgencyById } = require('../urgencies');
 const utils = require('../utils');
 
 const intFields = [
@@ -28,11 +29,14 @@ module.exports = function (Posts) {
 
 	Posts.getPostData = async function (pid) {
 		const posts = await Posts.getPostsFields([pid], []);
-		return posts && posts.length ? posts[0] : null;
+		const urgency = posts && posts.length ? (await getUrgencyById({ urg_id: posts[0].urg_id })) : null;
+		return urgency ? { ...posts[0], urgency } : null;
 	};
 
 	Posts.getPostsData = async function (pids) {
-		return await Posts.getPostsFields(pids, []);
+		const posts = await Posts.getPostsFields(pids, []);
+		const urgencies = await Promise.all(posts.map(post => getUrgencyById({ urg_id: post.urg_id })));
+		return posts.map((post, index) => ({ ...post, urgency: urgencies[index] }));
 	};
 
 	Posts.getPostField = async function (pid, field) {
