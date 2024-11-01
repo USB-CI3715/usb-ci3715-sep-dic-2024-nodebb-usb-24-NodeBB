@@ -35,6 +35,7 @@ module.exports = function (utils, Benchpress, relative_path) {
 		generatePlaceholderWave,
 		register,
 		__escape: identity,
+		equals,
 	};
 
 	function identity(str) {
@@ -385,6 +386,10 @@ module.exports = function (utils, Benchpress, relative_path) {
 		Object.keys(helpers).forEach(function (helperName) {
 			Benchpress.registerHelper(helperName, helpers[helperName]);
 		});
+	}
+
+	function equals(a, b) {
+		return a === b;
 	}
 
 	return helpers;
