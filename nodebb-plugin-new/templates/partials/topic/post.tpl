@@ -55,7 +55,7 @@
 			{{{ end }}}
 			
 			<div class="d-flex align-items-center gap-1 flex-grow-1 justify-content-end">
-				<select class="form-select-sm me-2 bg-primary text-white border-0" aria-label="Small select example">
+				<select class="form-select-sm me-2 bg-primary text-white border-0 urgency-select" aria-label="Small select example" data-pid="{./pid}" data-uid="{posts.user.uid}" data-content="{posts.content}">
 					<option value="1" {{{ if equals(posts.urg_id,"1") }}} selected {{{ end }}}>No urgency</option>
 					<option value="2" {{{ if equals(posts.urg_id,"2") }}} selected {{{ end }}}>High</option>
 					<option value="3" {{{ if equals(posts.urg_id,"3") }}} selected {{{ end }}}>Medium</option>
