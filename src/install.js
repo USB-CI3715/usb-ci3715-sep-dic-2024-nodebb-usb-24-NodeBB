@@ -361,6 +361,7 @@ async function createAdmin() {
 			username: results.username,
 			password: results.password,
 			email: results.email,
+			rol: 'admin',
 		});
 		await Groups.join('administrators', adminUid);
 		await Groups.show('administrators');
