@@ -3,7 +3,17 @@
 	<div class="d-flex flex-column text-truncate">
 		<div class="fw-semibold text-truncate" title="{./displayname}">{./displayname}</div>
 		<div class="text-xs text-muted text-truncate">@{./username}</div>
-		<div class="text-xs text-muted text-truncate">Rol: {./rol}</div>
+		<div class="text-xs text-muted text-truncate">
+            {{{ if (./rol == "student") }}}
+                Rol: Estudiante
+            {{{ else }}}
+				{{{ if (./rol == "professor") }}}
+                	Rol: Profesor
+				{{{ else }}}
+					Rol: Admin
+				{{{ end }}}
+            {{{ end }}}
+        </div>
 
 		{{{ if section_online }}}
 		<div class="text-xs text-muted text-truncate">
