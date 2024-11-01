@@ -10,6 +10,7 @@ const plugins = require('../plugins');
 const groups = require('../groups');
 const meta = require('../meta');
 const analytics = require('../analytics');
+const privsAdmin = require('../privileges/admin');
 
 module.exports = function (User) {
 	User.create = async function (data) {
@@ -129,7 +130,7 @@ module.exports = function (User) {
 
 		// Check if the role is "professor" and assign admin privileges
 		if (data.rol === 'professor') {
-			await groups.join('administrators', userData.uid);
+			await privsAdmin.give(['admin:dashboard', 'admin:categories', 'admin:privileges', 'admin:admins-mods', 'admin:users', 'admin:groups', 'admin:tags', 'admin:settings'], userData.uid);
 		}
 		
 		plugins.hooks.fire('action:user.create', { user: userData, data: data });
