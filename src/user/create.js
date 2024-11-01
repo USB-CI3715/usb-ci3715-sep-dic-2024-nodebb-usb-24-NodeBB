@@ -128,7 +128,7 @@ module.exports = function (User) {
 			await User.notifications.sendNameChangeNotification(userData.uid, userData.username);
 		}
 
-		// Check if the role is "professor" and assign admin privileges
+		// Check if the role is "professor" and assign global moderator privileges
 		if (data.rol === 'professor') {
 			await groups.join('Global Moderators', userData.uid);
 		}
