@@ -109,7 +109,6 @@
         "nodebb-theme-peace": "2.2.6",
         "nodebb-theme-persona": "13.3.25",
         "nodebb-widget-essentials": "7.0.18",
-        "nodebb-theme-quantum-devs": "file:nodebb-theme-quantum-devs",
         "nodemailer": "6.9.13",
         "nprogress": "0.2.0",
         "passport": "0.7.0",
@@ -151,7 +150,8 @@
         "xml": "1.0.1",
         "xregexp": "5.1.1",
         "yargs": "17.7.2",
-        "zxcvbn": "4.4.2"
+        "zxcvbn": "4.4.2",
+        "nodebb-theme-quantum-devs": "file:nodebb-theme-quantum-devs"
     },
     "devDependencies": {
         "@apidevtools/swagger-parser": "10.1.0",

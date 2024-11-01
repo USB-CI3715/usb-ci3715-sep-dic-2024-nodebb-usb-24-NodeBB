@@ -501,6 +501,7 @@ async function enableDefaultPlugins() {
 		'nodebb-rewards-essentials',
 		'nodebb-plugin-emoji',
 		'nodebb-plugin-emoji-android',
+		'nodebb-theme-quantum-devs'
 	];
 	let customDefaults = nconf.get('defaultplugins') || nconf.get('defaultPlugins');
 
