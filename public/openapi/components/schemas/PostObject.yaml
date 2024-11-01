@@ -138,5 +138,7 @@ PostObject:
           type: string
     isMainPost:
       type: boolean
+    isUrgentPost:
+      type: boolean
     replies:
       type: number
