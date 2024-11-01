@@ -76,6 +76,24 @@ userController.getUserDataByUID = async function (callerUid, uid) {
 	return userData;
 };
 
+/**
+ * Get the role of a user by their UID.
+ *
+ * @async
+ * @function getUserRolByUID
+ * @param {Object} req - The request object.
+ * @param {Object} req.params - The parameters of the request.
+ * @param {string} req.params.uid - The UID of the user.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise<void>} Responds with the user's role in JSON format.
+ */
+userController.getUserRolByUID = async function (req, res) {
+	const { uid } = req.params;
+	const rol = await user.getUserField(uid, 'rol');
+	res.json(rol);
+};
+
 require('../promisify')(userController, [
 	'getCurrentUser', 'getUserByUID', 'getUserByUsername', 'getUserByEmail',
 ]);

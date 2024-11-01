@@ -16,6 +16,8 @@ module.exports = function (app, middleware, controllers) {
 	router.get('/user/uid/:uid', [...middlewares, middleware.canViewUsers], helpers.tryRoute(controllers.user.getUserByUID));
 	router.get('/user/username/:username', [...middlewares, middleware.canViewUsers], helpers.tryRoute(controllers.user.getUserByUsername));
 	router.get('/user/email/:email', [...middlewares, middleware.canViewUsers], helpers.tryRoute(controllers.user.getUserByEmail));
+	// Include the user's role get request given the user's uid
+	router.get('/user/uid/:uid/rol', [...middlewares, middleware.canViewUsers], helpers.tryRoute(controllers.user.getUserRolByUID));
 
 	router.get('/categories/:cid/moderators', [...middlewares], helpers.tryRoute(controllers.api.getModerators));
 	router.get('/recent/posts/:term?', [...middlewares], helpers.tryRoute(controllers.posts.getRecentPosts));

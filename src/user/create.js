@@ -40,15 +40,23 @@ module.exports = function (User) {
 		}
 	}
 
+
 	async function create(data) {
 		const timestamp = data.timestamp || Date.now();
 
+		// If no rol is provided, throw an error
+		if (!data.rol) {
+			throw new Error('No hay rol', JSON.stringify(data));
+		}
+
+		// Include the rol in the user data
 		let userData = {
 			username: data.username,
 			userslug: data.userslug,
 			joindate: timestamp,
 			lastonline: timestamp,
 			status: 'online',
+			rol: data.rol,
 		};
 		['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
 			if (data[field]) {
@@ -118,6 +126,12 @@ module.exports = function (User) {
 		if (userNameChanged) {
 			await User.notifications.sendNameChangeNotification(userData.uid, userData.username);
 		}
+
+		// Check if the role is "professor" and assign global moderator privileges
+		if (data.rol === 'professor') {
+			await groups.join('Global Moderators', userData.uid);
+		}
+
 		plugins.hooks.fire('action:user.create', { user: userData, data: data });
 		return userData.uid;
 	}

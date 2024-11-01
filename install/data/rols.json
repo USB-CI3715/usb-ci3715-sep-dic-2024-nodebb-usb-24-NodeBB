@@ -1,0 +1,20 @@
+[
+    {
+        "name": "professor",
+        "description": "Professor with access to course management",
+        "descriptionParsed": "<p>Professor with access to course management</p>\n",
+        "bgColor": "#fda34b",
+        "color": "#ffffff",
+        "icon" : "fa-chalkboard-teacher",
+        "order": 2
+    },
+    {
+        "name": "student",
+        "description": "Student with access to learning materials",
+        "descriptionParsed": "<p>Student with access to learning materials</p>\n",
+        "bgColor": "#59b3d0",
+        "color": "#ffffff",
+        "icon" : "fa-user-graduate",
+        "order": 3
+    }
+]
