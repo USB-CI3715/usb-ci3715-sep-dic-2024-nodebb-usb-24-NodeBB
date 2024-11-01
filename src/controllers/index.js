@@ -37,6 +37,8 @@ Controllers.osd = require('./osd');
 Controllers['404'] = require('./404');
 Controllers.errors = require('./errors');
 Controllers.composer = require('./composer');
+Controllers.urgency = require('./urgency');
+Controllers.urgencies = require('./urgencies');
 
 Controllers.write = require('./write');
 

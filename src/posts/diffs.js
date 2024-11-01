@@ -38,11 +38,12 @@ module.exports = function (Posts) {
 	};
 
 	Diffs.save = async function (data) {
-		const { pid, uid, oldContent, newContent, edited, topic } = data;
+		const { pid, uid, oldContent, newContent, edited, topic, urg_id } = data;
 		const editTimestamp = edited || Date.now();
 		const diffData = {
 			uid: uid,
 			pid: pid,
+			urg_id: urg_id,
 		};
 		if (oldContent !== newContent) {
 			diffData.patch = diff.createPatch('', newContent, oldContent);
