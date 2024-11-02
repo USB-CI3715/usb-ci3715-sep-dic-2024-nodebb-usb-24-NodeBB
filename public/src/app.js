@@ -19,6 +19,42 @@ require('./ajaxify');
 
 app = window.app || {};
 
+const select = document.querySelectorAll('.urgency-select');
+if (select && select.length) {
+	select.forEach((el) => {
+		el.addEventListener('change', async (e) => {
+			const pid = parseInt(e.target.getAttribute('data-pid'), 10);
+			const uid = parseInt(e.target.getAttribute('data-uid'), 10);
+			const { content } = (await fetch(`/api/v3/posts/${pid}`).then(res => res.json())).response;
+			const urg_id = e.target.value;
+
+			const { csrf_token } = await fetch('/api/config').then(res => res.json());
+
+			const data = {
+				urg_id,
+				content: content,
+				uid,
+				pid,
+			};
+
+			const res = await fetch(`/api/v3/posts/${pid}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-csrf-token': csrf_token,
+				},
+				body: JSON.stringify(data),
+			});
+
+			if (res.status === 200) {
+				console.log('Urgency updated');
+			} else {
+				console.error('Error updating urgency', res);
+			}
+		});
+	});
+}
+
 Object.defineProperty(app, 'isFocused', {
 	get() {
 		return document.visibilityState === 'visible';
