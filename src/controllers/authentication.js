@@ -54,10 +54,36 @@ async function registerAndLoginUser(req, res, userData) {
 	}
 	// Join the user to the default group, if they are a student or professor
 	if (userData.rol === 'student') {
+		const exists = await groups.exists('Estudiantes');
+		if (!exists) {
+			await groups.create({
+				name: 'Estudiantes',
+				userTitle: 'Estudiantes',
+				description: 'Grupo para estudiantes',
+				hidden: 0,
+				private: 1,
+				disableJoinRequests: 1,
+				disableLeave: 1,
+			});
+			await groups.show('Estudiantes');
+		}
 		await groups.join('Estudiantes', uid);
 	}
 
 	if (userData.rol === 'professor') {
+		const exists = await groups.exists('Profesores');
+		if (!exists) {
+			await groups.create({
+				name: 'Profesores',
+				userTitle: 'Profesores',
+				description: 'Grupo para profesores',
+				hidden: 0,
+				private: 1,
+				disableJoinRequests: 1,
+				disableLeave: 1,
+			});
+			await groups.show('Profesores');
+		}
 		await groups.join('Profesores', uid);
 	}
 
