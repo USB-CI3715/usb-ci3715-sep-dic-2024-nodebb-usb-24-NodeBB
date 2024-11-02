@@ -75,6 +75,16 @@
 								{{{ if ./editedISO }}}
 								<meta itemprop="dateModified" content="{./editedISO}">
 								{{{ end }}}
+								
+								<!-- NUEVO BLOQUE DE ICONO URGENTE -->
+								{{{if posts.isUrgent}}}
+									<span class="text-warning">
+										<i class="fa fa-star"></i> Urgente
+									</span>
+								{{{else}}}
+									<i class="fa fa-star text-light"></i> <!-- Estrella blanca para los posts no urgentes -->
+								{{{end}}}
+								<!-- FIN NUEVO BLOQUE --> l	
 
 								<!-- IMPORT partials/topic/post.tpl -->
 							</li>
