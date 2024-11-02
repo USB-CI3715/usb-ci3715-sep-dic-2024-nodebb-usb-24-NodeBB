@@ -19,6 +19,13 @@
 								<span class="form-text text-xs">[[register:help.username-restrictions, {minimumUsernameLength}, {maximumUsernameLength}]]</span>
 							</div>
 						</div>
+						<div class="mb-2 d-flex flex-column gap-2">
+							<label for="isProfessor">Seleccione si es Profesor</label>
+							<div class="d-flex flex-column">
+								<input class="form-check-input" type="checkbox" name="isProfessor" id="isProfessor"/>
+								<span class="register-feedback text-xs text-danger" id="isProfessor-notify" aria-live="polite"></span>
+							</div>
+						</div>
 
 						<div class="mb-2 d-flex flex-column gap-2">
 							<label for="password">[[register:password]]</label>

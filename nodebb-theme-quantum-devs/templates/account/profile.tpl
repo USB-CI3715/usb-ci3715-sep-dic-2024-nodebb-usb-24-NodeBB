@@ -54,6 +54,22 @@
 			</div>
 		</div>
 
+		{{{ if isProfessor }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header px-0 py-3 border-0 rounded-1 h-100">
+				<span class="stat-label text-m fw-semibold">Profesor</span>
+				<span class="timeago fs-6 ff-secondary" title="{isProfessor}"></span>
+			</div>
+		</div>
+		{{{ else }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header px-0 py-3 border-0 rounded-1 h-100">
+				<span class="stat-label text-m fw-semibold">Estudiante</span>
+				<span class="timeago fs-6 ff-secondary" title="{isProfessor}"></span>
+			</div>
+		</div>
+		{{{ end }}}
+
 		{{{ if email }}}
 		<div class="stat">
 			<div class="align-items-center justify-content-center card card-header px-0 py-3 border-0 rounded-1 h-100 gap-2">

@@ -11,9 +11,11 @@ define('forum/register', [
 	Register.init = function () {
 		const username = $('#username');
 		const password = $('#password');
+		const isProfessor = $('#isProfessor');
 		const password_confirm = $('#password-confirm');
 		const register = $('#register');
 
+		showSuccess(isProfessor)
 		handleLanguageOverride();
 
 		$('#content #noscript').val('false');
