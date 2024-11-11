@@ -14,7 +14,7 @@
 	],
 	"scripts": [
 		"./static/lib/officialAnswer.js",
-		"./public/js/client.js",
+		"./public/js/client.js"
 	],
 	"templates": "./templates"
 }
