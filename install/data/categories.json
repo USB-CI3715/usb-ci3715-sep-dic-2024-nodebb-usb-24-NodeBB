@@ -30,9 +30,18 @@
         "name": "Comments & Feedback",
         "description": "Got a question? Ask away!",
         "descriptionParsed": "<p>Got a question? Ask away!</p>\n",
-        "bgColor": "#e95c5a",
+        "bgColor": "#ffcc00",
         "color": "#ffffff",
         "icon" : "fa-question",
         "order": 3
+    },
+    {
+        "name": "Urgent Questions",
+        "description": "Don't forget to check these posts",
+        "descriptionParsed": "<p>Don't forget to check these posts</p>\n",
+        "bgColor": "#e95c5a",
+        "color": "#ffffff",
+        "icon": "fa-fire",
+        "order": 5
     }
 ]
