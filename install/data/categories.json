@@ -41,7 +41,7 @@
         "descriptionParsed": "<p>Don't forget to check these posts</p>\n",
         "bgColor": "#e95c5a",
         "color": "#ffffff",
-        "icon": "fa-fire",
+        "icon": "fa-clock-o",
         "order": 1
     }
 ]
