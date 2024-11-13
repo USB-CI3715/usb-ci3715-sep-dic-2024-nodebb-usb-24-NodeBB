@@ -8,7 +8,7 @@ const utils = require('../utils');
 const intFields = [
 	'uid', 'pid', 'tid', 'deleted', 'timestamp',
 	'upvotes', 'downvotes', 'deleterUid', 'edited',
-	'replies', 'bookmarks',
+	'replies', 'bookmarks', 'answered',
 ];
 
 module.exports = function (Posts) {
@@ -32,6 +32,17 @@ module.exports = function (Posts) {
 		const urgency = posts && posts.length ? (await getUrgencyById({ urg_id: posts[0].urg_id })) : null;
 		return urgency ? { ...posts[0], urgency } : null;
 	};
+
+	Posts.getAnsweredStatus = async function (pid) {
+		/**
+		 * Retrieves the answered status of a post.
+		 *
+		 * @param {number} pid - The ID of the post to retrieve.
+		 * @returns {string} True if the post has been answered, false otherwise.
+		 */
+		const post = await Posts.getPostFields(pid, ['answered']);
+		return post ? post.answered : false;
+	}
 
 	Posts.getPostsData = async function (pids) {
 		const posts = await Posts.getPostsFields(pids, []);
