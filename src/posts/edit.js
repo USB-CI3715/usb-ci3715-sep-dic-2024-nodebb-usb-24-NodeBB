@@ -38,6 +38,7 @@ module.exports = function (Posts) {
 		const oldContent = postData.content; // for diffing purposes
 		const editPostData = getEditPostData(data, topicData, postData);
 		const urg_id = data.urg_id || postData.urg_id;
+		const answered = data.answered || postData.answered;
 		editPostData.urg_id = urg_id;
 
 		if (data.handle) {
@@ -50,6 +51,7 @@ module.exports = function (Posts) {
 			data: data,
 			uid: data.uid,
 			urg_id: urg_id,
+			answered: answered,
 		});
 
 		const [editor, topic] = await Promise.all([
