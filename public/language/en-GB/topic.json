@@ -92,6 +92,7 @@
 
 	"markAsUnreadForAll.success" : "Topic marked as unread for all.",
 	"mark-unread": "Mark unread",
+    "mark-important": "Mark important",
 	"mark-unread.success": "Topic marked as unread.",
 
 	"watch": "Watch",
