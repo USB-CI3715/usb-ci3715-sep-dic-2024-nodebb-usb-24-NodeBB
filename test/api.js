@@ -251,18 +251,21 @@ describe('API', async () => {
 			cid: testCategory.cid,
 			title: 'Test Topic',
 			content: 'Test topic content',
+			isUrgent: false
 		});
 		const unprivTopic = await topics.post({
 			uid: unprivUid,
 			cid: testCategory.cid,
 			title: 'Test Topic 2',
 			content: 'Test topic 2 content',
+			isUrgent: false
 		});
 		await topics.post({
 			uid: unprivUid,
 			cid: testCategory.cid,
 			title: 'Test Topic 3',
 			content: 'Test topic 3 content',
+			isUrgent: true
 		});
 
 		// Create a post diff
@@ -630,6 +633,11 @@ describe('API', async () => {
 						assert.strictEqual(typeof response[prop], 'string', `"${prop}" was expected to be a string, but was ${typeof response[prop]} instead (path: ${method} ${path}, context: ${context})`);
 						break;
 					case 'boolean':
+						if (response[prop] === "true") {
+							response[prop] = true;
+						} else if (response[prop] === "false") {
+							response[prop] = false;
+						}
 						assert.strictEqual(typeof response[prop], 'boolean', `"${prop}" was expected to be a boolean, but was ${typeof response[prop]} instead (path: ${method} ${path}, context: ${context})`);
 						break;
 					case 'object':

@@ -39,6 +39,7 @@ postsAPI.get = async function (caller, data) {
 	if (post.deleted && !(userPrivilege.isAdminOrMod || selfPost)) {
 		post.content = '[[topic:post-is-deleted]]';
 	}
+	
 
 	return post;
 };

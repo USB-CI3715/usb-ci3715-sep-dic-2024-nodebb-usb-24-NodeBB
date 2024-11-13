@@ -65,6 +65,8 @@ get:
                           type: number
                         votes:
                           type: number
+                        isUrgent:
+                          type: boolean
                         deleted:
                           type: number
                         upvotes:

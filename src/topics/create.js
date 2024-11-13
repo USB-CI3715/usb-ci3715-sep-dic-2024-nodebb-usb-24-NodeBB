@@ -155,7 +155,7 @@ module.exports = function (Topics) {
 			user.notifications.sendTopicNotificationToFollowers(uid, topicData, postData);
 			Topics.notifyTagFollowers(postData, uid);
 			categories.notifyCategoryFollowers(postData, uid);
-		}
+		}	
 
 		return {
 			topicData: topicData,
