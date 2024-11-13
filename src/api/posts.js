@@ -123,6 +123,8 @@ postsAPI.edit = async function (caller, data) {
 			oldContent: editResult.post.oldContent,
 			newContent: editResult.post.newContent,
 			urg_id: data.urg_id,
+			// answered is a boolean, but we need to store it as a string
+			answered: data.answered,
 		});
 	}
 
