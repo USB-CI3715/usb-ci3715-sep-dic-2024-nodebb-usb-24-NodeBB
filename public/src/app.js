@@ -37,7 +37,7 @@ if (select && select.length) {
 				pid,
 			};
 
-			const res = await fetch(`/api/v3/posts/${pid}`, {
+			await fetch(`/api/v3/posts/${pid}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -45,12 +45,6 @@ if (select && select.length) {
 				},
 				body: JSON.stringify(data),
 			});
-
-			if (res.status === 200) {
-				console.log('Urgency updated');
-			} else {
-				console.error('Error updating urgency', res);
-			}
 		});
 	});
 }
