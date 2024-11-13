@@ -123,18 +123,18 @@ if (document.readyState === 'loading') {
 	};
 	app.handleEarlyClicks();
 
-	const observer = new MutationObserver(function(mutations) {
-		mutations.forEach(async function() {
+	const observer = new MutationObserver(function (mutations) {
+		mutations.forEach(async function () {
 			if (window.location.pathname === '/' || window.location.pathname.endsWith('/categories')) {
 				const userRole = app.user.rol;
 				const categories = document.querySelectorAll('[data-order]');
-				categories.forEach(category => {
+				categories.forEach((category) => {
 					if (category.getAttribute('data-order') === '1' && userRole !== 'professor') {
 						category.remove();
 					}
 				});
 			}
-			if (window.location.pathname.endsWith('/urgent-questions')){
+			if (window.location.pathname.endsWith('/urgent-questions')) {
 				const button = document.getElementById('new_topic');
 				if (button) button.style.display = 'none';
 				// const { csrf_token, uid } = await fetch('/api/config').then(res => res.json());
@@ -143,7 +143,7 @@ if (document.readyState === 'loading') {
 	});
 	observer.observe(document.body, {
 		childList: true,
-		subtree: true
+		subtree: true,
 	});
 
 	app.load = function () {
