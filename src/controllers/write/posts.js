@@ -199,3 +199,36 @@ Posts.getUnansweredUrgentPosts = async (req, res) => {
 	const urgentPosts = await posts.getUnansweredUrgentPosts(req.uid);
 	helpers.formatApiResponse(200, res, urgentPosts);
 };
+Posts.getAnsweredStatus = async (req, res) => {
+	/**
+	 * Retrieves the answered status of a post.
+	 *
+	 * @param {string} pid - The ID of the post to check.
+	 * @returns - An Response object containing the answered status of the post.
+	 */
+	const answeredStatus = await posts.getAnsweredStatus(req.params.pid);
+	helpers.formatApiResponse(200, res, answeredStatus);
+};
+
+Posts.toggleAnswered = async (req, res) => {
+	/**
+	 * Toggles the "answered" status of a post.
+	 *
+	 * @param {string} req.params.pid - The ID of the post to toggle.
+	 * @returns - An Response object containing the new answered status of the post.
+	 */
+	// Get the current answered status of the post
+	const answeredStatus = await posts.getAnsweredStatus(req.params.pid);
+	// Toggle the answered status
+	if (answeredStatus === 'false') {
+		await posts.setPostField(req.params.pid, 'answered', true);
+	} else {
+		await posts.setPostField(req.params.pid, 'answered', false);
+	}
+
+	// Get the new answered status
+	const newStatus = await posts.getAnsweredStatus(req.params.pid);
+
+	// Return the new status
+	helpers.formatApiResponse(200, res, newStatus);
+};

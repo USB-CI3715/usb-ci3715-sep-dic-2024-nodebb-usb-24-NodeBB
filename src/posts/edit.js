@@ -38,6 +38,7 @@ module.exports = function (Posts) {
 		const oldContent = postData.content; // for diffing purposes
 		const editPostData = getEditPostData(data, topicData, postData);
 		const urg_id = data.urg_id || postData.urg_id;
+		// we need to ensure that the post is marked as answered if it was answered before
 		const answered = data.answered || postData.answered;
 		editPostData.urg_id = urg_id;
 
@@ -51,6 +52,7 @@ module.exports = function (Posts) {
 			data: data,
 			uid: data.uid,
 			urg_id: urg_id,
+			// we need to ensure that the post is marked as answered if it was answered before
 			answered: answered,
 		});
 
@@ -69,6 +71,7 @@ module.exports = function (Posts) {
 				pid: data.pid,
 				uid: data.uid,
 				urg_id: data.urg_id || postData.urg_id,
+				answered: data.answered || postData.answered,
 				oldContent: oldContent,
 				newContent: data.content,
 				edited: editPostData.edited,
