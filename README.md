@@ -48,6 +48,17 @@ NodeBB requires the following software to be installed:
 [Please refer to platform-specific installation documentation](https://docs.nodebb.org/installing/os).
 If installing via the cloud (or using Docker), [please see cloud-based installation documentation](https://docs.nodebb.org/installing/cloud/).
 
+## Aditional Plugins
+
+To run the additional plugins that were implemented, you need to activate them manually. To do this, for each folder within the "plugins" folder you must perform: 
+* Go to each folder
+* Run "sudo npm link"
+* Return to the outermost folder
+* Run "npm link [folder name in plugin]"
+* Run "./nodebb activate [plugin folder name]"
+
+Once these steps have been carried out for each folder within the plugin, you will have installed and activated the plugins created for this project
+
 ## Securing NodeBB
 
 It is important to ensure that your NodeBB and database servers are secured. Bear these points in mind:
@@ -69,6 +80,14 @@ Detailed upgrade instructions are listed in [Upgrading NodeBB](https://docs.node
 NodeBB is licensed under the **GNU General Public License v3 (GPL-3)** (http://www.gnu.org/copyleft/gpl.html).
 
 Interested in a sublicense agreement for use of NodeBB in a non-free/restrictive environment? Contact us at sales@nodebb.org.
+
+## Team Members
+
+* Miguel Ángel Arturo Gordillo Arismendi 18-10807
+* Kevin Jesus Oporto Hernandez           13-11007
+* Felix Ramon Arnos Navarro              15-10088
+* Néstor Jesús Herrera Uribe             18-10796
+* Kevin Jhon Briceño Manzanilla          15-11661
 
 ## More Information/Links
 
