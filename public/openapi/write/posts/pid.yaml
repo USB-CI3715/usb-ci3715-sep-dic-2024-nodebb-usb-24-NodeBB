@@ -64,6 +64,8 @@ get:
                     type: boolean
                   downvoted:
                     type: boolean
+                  isUrgent:
+                    type: boolean
 put:
   tags:
     - posts
