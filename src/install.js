@@ -459,7 +459,7 @@ async function createCategories() {
 	}
 }
 
-async function createUgrencies() {
+async function createUrgencies() {
 	const Urgencies = require('./urgencies');
 	const db = require('./database');
 	const cids = await db.getSortedSetRange('urgencies:urg_id', 0, -1);
@@ -475,8 +475,7 @@ async function createUgrencies() {
 	);
 	for (const categoryData of default_urgencies) {
 		// eslint-disable-next-line no-await-in-loop
-		const p = await Urgencies.create(categoryData);
-		console.log(p);
+		await Urgencies.create(categoryData);
 	}
 }
 
@@ -606,7 +605,7 @@ install.setup = async function () {
 		await setupDefaultConfigs();
 		await enableDefaultTheme();
 		await createCategories();
-		await createUgrencies();
+		await createUrgencies();
 		await createDefaultUserGroups();
 		const adminInfo = await createAdministrator();
 		await createGlobalModeratorsGroup();

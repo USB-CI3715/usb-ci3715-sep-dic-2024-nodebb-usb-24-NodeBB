@@ -19,21 +19,9 @@ require('./ajaxify');
 
 app = window.app || {};
 
-async function getUrgency() {
-	const urgencies = await fetch('/api/urgency').then(res => res.json());
-	return urgencies;
-}
-
 const select = document.querySelectorAll('.urgency-select');
-
 if (select && select.length) {
-	select.forEach(async (el) => {
-		const urgencies = await getUrgency();
-
-		const urg_id = el.getAttribute('data-urg');
-		const options = urgencies.map(urgency => `<option value="${urgency.urg_id}" ${urg_id === urgency.urg_id ? 'selected' : ''}>${urgency.name}</option>`);
-		el.innerHTML = options.join('');
-
+	select.forEach((el) => {
 		el.addEventListener('change', async (e) => {
 			const pid = parseInt(e.target.getAttribute('data-pid'), 10);
 			const uid = parseInt(e.target.getAttribute('data-uid'), 10);
@@ -49,7 +37,7 @@ if (select && select.length) {
 				pid,
 			};
 
-			const res = await fetch(`/api/v3/posts/${pid}`, {
+			await fetch(`/api/v3/posts/${pid}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -57,12 +45,6 @@ if (select && select.length) {
 				},
 				body: JSON.stringify(data),
 			});
-
-			if (res.status === 200) {
-				console.log('Urgency updated');
-			} else {
-				console.error('Error updating urgency', res);
-			}
 		});
 	});
 }

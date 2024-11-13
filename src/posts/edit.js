@@ -113,6 +113,81 @@ module.exports = function (Posts) {
 		};
 	};
 
+	Posts.editAnswered = async function (data) {
+		const canEdit = await privileges.posts.canEdit(data.pid, data.uid);
+		if (!canEdit.flag) {
+			throw new Error(canEdit.message);
+		}
+		const postData = await Posts.getPostData(data.pid);
+		if (!postData) {
+			throw new Error('[[error:no-post]]');
+		}
+
+		const topicData = await topics.getTopicFields(postData.tid, [
+			'cid', 'mainPid', 'title', 'timestamp', 'scheduled', 'slug', 'tags',
+		]);
+
+		await scheduledTopicCheck(data, topicData);
+
+		const oldContent = postData.content; // for diffing purposes
+		const editPostData = getEditPostData(data, topicData, postData);
+		const answered = data.answered || postData.answered;
+		editPostData.answered = answered;
+
+		if (data.handle) {
+			editPostData.handle = data.handle;
+		}
+
+		const result = await plugins.hooks.fire('filter:post.edit', {
+			req: data.req,
+			post: editPostData,
+			data: data,
+			uid: data.uid,
+			answered: answered,
+		});
+
+		const [editor, topic] = await Promise.all([
+			user.getUserFields(data.uid, ['username', 'userslug']),
+			editMainPost(data, postData, topicData),
+		]);
+
+		await Posts.setPostFields(data.pid, result.post);
+		await Posts.uploads.sync(data.pid);
+
+		// Normalize data prior to constructing returnPostData (match types with getPostSummaryByPids)
+		postData.deleted = !!postData.deleted;
+
+		const returnPostData = { ...postData, ...result.post };
+		returnPostData.cid = topic.cid;
+		returnPostData.answered = answered;
+		returnPostData.topic = topic;
+		returnPostData.editedISO = utils.toISOString(editPostData.edited);
+		returnPostData.changed = false;
+		returnPostData.oldContent = oldContent;
+		returnPostData.newContent = oldContent;
+
+		await topics.notifyFollowers(returnPostData, data.uid, {
+			type: 'post-edit',
+			bodyShort: translator.compile('notifications:user-edited-post', editor.username, topic.title),
+			nid: `edit_post:${data.pid}:uid:${data.uid}`,
+		});
+		await topics.syncBacklinks(returnPostData);
+
+		plugins.hooks.fire('action:post.edit', { post: _.clone(returnPostData), data: data, uid: data.uid, answered: answered });
+
+		require('./cache').del(String(postData.pid));
+		pubsub.publish('post:edit', String(postData.pid));
+
+		await Posts.parsePost(returnPostData);
+
+		return {
+			topic: topic,
+			editor: editor,
+			post: returnPostData,
+			answered: answered,
+		};
+	};
+
 	async function editMainPost(data, postData, topicData) {
 		const { tid } = postData;
 		const title = data.title ? data.title.trim() : '';

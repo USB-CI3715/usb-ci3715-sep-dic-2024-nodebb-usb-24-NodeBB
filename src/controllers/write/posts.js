@@ -84,6 +84,16 @@ Posts.edit = async (req, res) => {
 	helpers.formatApiResponse(200, res, editResult);
 };
 
+Posts.editAnswered = async (req, res) => {
+	const editResult = await api.posts.editAnswered(req, {
+		...req.body,
+		pid: req.params.pid,
+		uid: req.uid,
+	});
+
+	helpers.formatApiResponse(200, res, editResult);
+};
+
 Posts.purge = async (req, res) => {
 	await api.posts.purge(req, { pid: req.params.pid });
 	helpers.formatApiResponse(200, res);
@@ -185,6 +195,10 @@ Posts.getUrgentPosts = async (req, res) => {
 	helpers.formatApiResponse(200, res, urgentPosts);
 };
 
+Posts.getUnansweredUrgentPosts = async (req, res) => {
+	const urgentPosts = await posts.getUnansweredUrgentPosts(req.uid);
+	helpers.formatApiResponse(200, res, urgentPosts);
+};
 Posts.getAnsweredStatus = async (req, res) => {
 	/**
 	 * Retrieves the answered status of a post.
@@ -194,7 +208,7 @@ Posts.getAnsweredStatus = async (req, res) => {
 	 */
 	const answeredStatus = await posts.getAnsweredStatus(req.params.pid);
 	helpers.formatApiResponse(200, res, answeredStatus);
-}
+};
 
 Posts.toggleAnswered = async (req, res) => {
 	/**
@@ -217,4 +231,4 @@ Posts.toggleAnswered = async (req, res) => {
 
 	// Return the new status
 	helpers.formatApiResponse(200, res, newStatus);
-}
+};
