@@ -38,6 +38,8 @@ module.exports = function (Posts) {
 			content: content,
 			timestamp: timestamp,
 			urg_id: urg_id,
+			// At this point, the post is not been answered
+			answered: false
 		};
 
 		if (data.toPid) {
@@ -49,6 +51,9 @@ module.exports = function (Posts) {
 		if (data.handle && !parseInt(uid, 10)) {
 			postData.handle = data.handle;
 		}
+
+		// If the post has been answered, set the answered field to true
+		postData.answered = data.answered || false;
 
 		let result = await plugins.hooks.fire('filter:post.create', {
 			post: postData,
