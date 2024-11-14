@@ -34,9 +34,13 @@ En esta caracteristica, se implementará un botón o enlace visible junto a cada
 
 - **Agregar test a creacion de posts**.
 
-Modificación de diversos YAML para incluir propiedad isUrgent en los posts
+Se modificaron los archivos public/openapi/components/schemas/PostObject.yaml, public/openapi/read/topic/topic_id.yaml y public/openapi/write/posts/pid.yaml para manejar el valor isUrgent (el booleano que determina si un post es urgente o no) de forma adecuada
 
-Se modificaron varios .js para asegurarse que dicho valor siempre fuese un booleano
+Se agregó un Boolean() en el archivo src/posts/create.js para asegurarse de que isUrgent es un booleano
+
+Se agregaron parametros isUrgent a los posts de prueba en el archivo test/api.js para testear los posts de manera adecuada
+
+Se modificaron los tests para aceptar los "false" y "true" como booleanos, esto no es para nada ideal pero no pudimos descifrar por qué el sistema convertía estos booleanos a string ya que hicimos varias conversiones para verificar que estos sean booleanos 
 
 - **Internalizacion del boton**.
 
