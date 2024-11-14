@@ -10,7 +10,7 @@
 
 				<!-- Nuevo Botón de Importancia -->
 				<button component="topic/mark-important" class="btn-ghost-sm ff-secondary d-flex gap-2 align-items-center">
-					<i class="fa fa-fw fa-star text-primary"></i>
+					<i class="fa fa-fw fa-star"></i>
 					<span class="d-none d-md-inline fw-semibold">[[topic:mark-important]]</span>
 				</button>
 

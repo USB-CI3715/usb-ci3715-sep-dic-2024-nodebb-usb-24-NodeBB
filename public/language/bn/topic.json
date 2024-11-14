@@ -81,6 +81,7 @@
     "login-to-subscribe": "এই টপিকে সাবস্ক্রাইব করতে চাইলে অনুগ্রহ করে নিবন্ধণ করুন অথবা প্রবেশ করুন।",
     "markAsUnreadForAll.success": "টপিকটি সবার জন্য অপঠিত হিসাবে মার্ক করুন।",
     "mark-unread": "Mark unread",
+    "mark-important": "গুরুত্বপূর্ণ হিসাবে মার্ক করুন",
     "mark-unread.success": "Topic marked as unread.",
     "watch": "দেখা",
     "unwatch": "অদেখা",

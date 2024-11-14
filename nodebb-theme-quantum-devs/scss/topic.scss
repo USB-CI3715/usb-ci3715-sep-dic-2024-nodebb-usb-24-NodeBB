@@ -9,13 +9,13 @@ body.template-topic {
 		}
 
 		// Estilo para el icono de estrella en estado normal
-		// .fa-star {
-		// 	color: $text-primary; // Color inicial, similar al timbre en la imagen
-		// }
+		.fa-star {
+			color: $primary; 
+		}
 
 		// Estilo para el icono cuando está activo (después de ser clickeado)
 		&.active .fa-star {
-			color: $warning; // Color para el estado activo, puedes ajustar el color aquí
+			color: $warning;
 		}
 	}
 
