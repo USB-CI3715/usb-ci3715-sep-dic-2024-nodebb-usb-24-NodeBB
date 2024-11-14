@@ -50,7 +50,7 @@ module.exports = function (User) {
 			joindate: timestamp,
 			lastonline: timestamp,
 			status: 'online',
-			isProfessor: data.isProfessor == 'on'
+			isProfessor: data.isProfessor == 'on' || false
 		};
 		['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
 			if (data[field]) {

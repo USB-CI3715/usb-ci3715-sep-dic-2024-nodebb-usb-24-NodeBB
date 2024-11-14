@@ -72,7 +72,7 @@ describe('User', () => {
 
 	describe('.create(), when created', () => {
 		it('should be created properly', async () => {
-			testUid = await User.create({ username: userData.username, password: userData.password });
+			testUid = await User.create({ username: userData.username, password: userData.password, isProfessor: 'on'});
 			assert.ok(testUid);
 
 			await User.setUserField(testUid, 'email', userData.email);

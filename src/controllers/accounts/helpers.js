@@ -32,6 +32,7 @@ helpers.getUserDataByUserSlug = async function (userslug, callerUID, query = {})
 	await parseAboutMe(results.userData);
 
 	let { userData } = results;
+
 	const { userSettings, isAdmin, isGlobalModerator, isModerator, canViewInfo } = results;
 	const isSelf = parseInt(callerUID, 10) === parseInt(userData.uid, 10);
 
