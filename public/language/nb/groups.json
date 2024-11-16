@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Aksepter invitasjon",
     "membership.accept.notification-title": "Du er nå et medlem av <strong>%1</strong>",
     "membership.invitation-pending": "Invitasjon venter",
-    "membership.join-group": "Bli med i gruppe",
+    "membership.enroll-class": "Bli med i gruppe",
     "membership.leave-group": "Forlat gruppe",
     "membership.leave.notification-title": "<strong>%1</strong> har forlatt gruppen <strong>%2</strong>",
     "membership.reject": "Avslå",

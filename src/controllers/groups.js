@@ -20,8 +20,10 @@ groupsController.list = async function (req, res) {
 		privileges.global.can('group:create', req.uid),
 	]);
 
+	const groupsFiltered = await privileges.users.hasGroupPerms(req.uid, groupData);
+
 	res.render('groups/list', {
-		groups: groupData,
+		groups: groupData.filter((_, i) => groupsFiltered[i]),
 		allowGroupCreation: allowGroupCreation,
 		sort: validator.escape(String(sort)),
 		nextStart: 15,
@@ -60,6 +62,10 @@ groupsController.details = async function (req, res, next) {
 		if (!isMember && !isInvited) {
 			return next();
 		}
+	}
+	const hasGroupPerms = await privileges.users.hasGroupPerms(req.uid, groupName);
+	if (!hasGroupPerms) {
+		return next();
 	}
 	const [groupData, posts] = await Promise.all([
 		groups.get(groupName, {

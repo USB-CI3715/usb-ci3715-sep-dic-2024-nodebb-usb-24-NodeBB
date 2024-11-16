@@ -9,6 +9,17 @@ const user = require('../user');
 const meta = require('../meta');
 const notifications = require('../notifications');
 const slugify = require('../slugify');
+const categories = require('../categories');
+
+// Funcion para buscar el CID de la categoria segun el nombre del grupo.
+function getCategoryCIDByName(categories, targetName) {
+	for (let i = 0; i < categories.length; i++) {
+		if (categories[i].name === targetName) {
+			return categories[i].cid;
+		}
+	}
+	return null; // Retorna null si no se encuentra la categoría
+}
 
 const groupsAPI = module.exports;
 
@@ -36,13 +47,69 @@ groupsAPI.create = async function (caller, data) {
 	}
 	data.ownerUid = caller.uid;
 	data.system = false;
+	data.creatorUid = caller.uid;
 	const groupData = await groups.create(data);
+
+	// Creación de categoria respectiva al grupo. Se crea la categoría si el grupo creado tiene el formato
+	// `[codigo] | [Nombre] | [Trimestre y Año] | Sec. [# Seccion]`
+	const courseData = groupData.name.split(' | ');
+	if (courseData.length === 4) {
+		const courseCode = courseData[0]; // Código del curso
+		const courseName = courseData[1]; // Nombre del curso
+
+		const timeCourseData = courseData[2].split(' '); // Momento en que se imparte el curso
+		// Diccionario para transformar los códigos de trimestre a sus significados
+		const trimesterDictionary = {
+			EM: 'Enero-Marzo',
+			AJ: 'Abril-Julio',
+			SD: 'Septiembre-Diciembre',
+			PI: 'Periodo Intensivo',
+			SC: 'Periodo Intensivo',
+		};
+		const trimester = trimesterDictionary[timeCourseData[0]]; // Trimestre del curso
+		const year = timeCourseData[1]; // Año del curso
+
+		const section = courseData[3].split(' ')[1]; // Sección asociada al curso.
+
+		const [fullDataGroup] = await Promise.all([groups.get(groupData.name, {})]);
+		console.log(fullDataGroup);
+		const teacher = await user.getUserFields(fullDataGroup.creatorUid, ['fullname']); // Profesor respectivo del curso.
+
+		const descriptionCurse = `💬 ¡Bienvenidos al fascinante ambiente de preguntas y respuestas en "${courseName}" (${courseCode})! 
+		Este espacio se lleva a cabo en el trimestre ${trimester} del año ${year}, en la sección ${section}. 
+		Bajo la moderación experta de el/la Prof. ${teacher.fullname} 👨‍🏫👩‍🏫.`;
+
+		// Inicialización de la categoría
+		const dataCategory = {
+			name: groupData.name,
+			parentCid: null,
+			order: null,
+			description: descriptionCurse,
+			descriptionParsed: descriptionCurse,
+			icon: 'fa-book',
+			bgColor: null,
+			color: null,
+			disabled: 0,
+			link: null,
+			class: null,
+			backgroundImage: null,
+			cloneFromCid: null,
+			cloneChildren: null,
+		};
+		const categoryData = await categories.create(dataCategory);
+
+		data.memberPostCids = `${categoryData.cid}`;
+		await groups.update(groupData.name, data);
+	}
+
+
 	logGroupEvent(caller, 'group-create', {
 		groupName: data.name,
 	});
 
 	return groupData;
 };
+
 
 groupsAPI.update = async function (caller, data) {
 	if (!data) {
@@ -67,7 +134,16 @@ groupsAPI.delete = async function (caller, data) {
 		throw new Error('[[error:not-allowed]]');
 	}
 
+	const allCategories = await categories.getAllCategories();
+	const targetName = groupName;
+	const cid = getCategoryCIDByName(allCategories, targetName);
+	if (cid) {
+		// Eliminacion de la categoría asociada al grupo.
+		await categories.purge(cid, caller.uid);
+	}
+
 	await groups.destroy(groupName);
+
 	logGroupEvent(caller, 'group-delete', {
 		groupName: groupName,
 	});
@@ -237,6 +313,18 @@ groupsAPI.leave = async function (caller, data) {
 	});
 	const uids = await groups.getOwners(groupName);
 	await notifications.push(notification, uids);
+
+	// Eliminar grupo en caso de quedar sin propietarios
+	if (isCallerOwner && uids.length === 0) {
+		const allCategories = await categories.getAllCategories();
+		const targetName = groupName;
+		const cid = getCategoryCIDByName(allCategories, targetName);
+
+		if (cid) {
+			await groups.destroy(groupName); // Eliminacion del grupo.
+			await categories.purge(cid, caller.uid); // Eliminacion de la categoría asociada al grupo.
+		}
+	}
 
 	logGroupEvent(caller, `group-${isSelf ? 'leave' : 'kick'}`, {
 		groupName: groupName,

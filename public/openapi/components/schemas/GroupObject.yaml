@@ -148,6 +148,10 @@ GroupFullObject:
       type: boolean
     isOwner:
       type: boolean
+    creatorUid:
+      type: number
+      description: A user creator identifier
+      example: 1
   nullable: true
 GroupDataObject:
   type: object
@@ -215,3 +219,7 @@ GroupDataObject:
       items:
         type: number
         example: [1, 2, 3]
+    creatorUid:
+      type: number
+      description: A user creator identifier
+      example: 1

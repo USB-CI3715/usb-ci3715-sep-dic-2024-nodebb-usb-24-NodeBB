@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Aceitar convite",
     "membership.accept.notification-title": "És agora um membro de <strong>%1</strong>",
     "membership.invitation-pending": "Convite em espera",
-    "membership.join-group": "Aderir ao grupo",
+    "membership.enroll-class": "Aderir ao grupo",
     "membership.leave-group": "Sair do grupo",
     "membership.leave.notification-title": "<strong>%1</strong> deixou o grupo <strong>%2</strong>",
     "membership.reject": "Rejeitar",

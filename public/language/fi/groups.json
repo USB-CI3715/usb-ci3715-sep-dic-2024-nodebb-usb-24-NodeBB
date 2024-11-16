@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Hyväksy kutsu",
     "membership.accept.notification-title": "Olet nyt <strong>%1 </strong> ryhmän jäsen",
     "membership.invitation-pending": "Odottavat kutsut",
-    "membership.join-group": "Liity ryhmään",
+    "membership.enroll-class": "Liity ryhmään",
     "membership.leave-group": "Poistu ryhmästä",
     "membership.leave.notification-title": "<strong>%1 </strong> on lähtenyt <strong>%2 </strong> ryhmästä",
     "membership.reject": "Hylkää",

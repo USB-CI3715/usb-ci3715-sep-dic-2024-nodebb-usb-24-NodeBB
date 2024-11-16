@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Priimti Kvietimą",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "Pakvietimas Laukiamas",
-    "membership.join-group": "Prisijungti Prie Grupės",
+    "membership.enroll-class": "Prisijungti Prie Grupės",
     "membership.leave-group": "Palikti Grupę",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "Atšaukti",

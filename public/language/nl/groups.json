@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Uitnodiging accepteren",
     "membership.accept.notification-title": "Je bent nu lid van <strong>%1</strong>",
     "membership.invitation-pending": "Openstaande uitnodiging",
-    "membership.join-group": "Deelnemen aan groep",
+    "membership.enroll-class": "Deelnemen aan groep",
     "membership.leave-group": "Verlaat groep",
     "membership.leave.notification-title": "<strong>%1</strong> heeft groep <strong>%2</strong> verlaten",
     "membership.reject": "Afwijzen",

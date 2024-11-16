@@ -11,6 +11,7 @@ const translator = require('../translator');
 const intFields = [
 	'createtime', 'memberCount', 'hidden', 'system', 'private',
 	'userTitleEnabled', 'disableJoinRequests', 'disableLeave',
+	'creatorUid',
 ];
 
 module.exports = function (Groups) {

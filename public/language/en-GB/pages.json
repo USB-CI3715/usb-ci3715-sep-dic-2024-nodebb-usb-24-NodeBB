@@ -33,8 +33,8 @@
 	"reset": "Reset your account password",
 	"categories": "Categories",
 
-	"groups": "Groups",
-	"group": "%1 group",
+	"groups": "Courses",
+	"group": "%1 course",
 
 	"chats": "Chats",
 	"chat": "Chatting with %1",
@@ -52,7 +52,7 @@
 	"account/posts": "Posts made by %1",
 	"account/latest-posts": "Latest posts made by %1",
 	"account/topics": "Topics created by %1",
-	"account/groups": "%1's Groups",
+	"account/groups": "%1's Courses",
 	"account/watched-categories": "%1's Watched Categories",
 	"account/watched-tags": "%1's Watched Tags",
 	"account/bookmarks": "%1's Bookmarked Posts",

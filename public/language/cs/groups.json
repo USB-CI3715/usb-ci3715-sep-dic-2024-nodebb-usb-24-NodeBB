@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Přijmout pozvání",
     "membership.accept.notification-title": "Nyní jste členem <strong>%1</strong>",
     "membership.invitation-pending": "Čekající pozvání",
-    "membership.join-group": "Vstoupit do skupiny",
+    "membership.enroll-class": "Vstoupit do skupiny",
     "membership.leave-group": "Opustit skupinu",
     "membership.leave.notification-title": "<strong>%1</strong> opustit skupinu <strong>%2</strong>",
     "membership.reject": "Odmítnout",

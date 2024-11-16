@@ -14,7 +14,7 @@ module.exports = function (Groups) {
 	Groups.getMemberUsers = async function (groupNames, start, stop) {
 		async function get(groupName) {
 			const uids = await Groups.getMembers(groupName, start, stop);
-			return await user.getUsersFields(uids, ['uid', 'username', 'picture', 'userslug']);
+			return await user.getUsersFields(uids, ['uid', 'username', 'fullname', 'picture', 'userslug']);
 		}
 		return await Promise.all(groupNames.map(name => get(name)));
 	};

@@ -67,6 +67,10 @@ get:
                           items:
                             type: number
                             example: [1, 2, 3]
+                        creatorUid:
+                          type: number
+                          description: A user creator identifier
+                          example: 1
                         members:
                           type: array
                           items:

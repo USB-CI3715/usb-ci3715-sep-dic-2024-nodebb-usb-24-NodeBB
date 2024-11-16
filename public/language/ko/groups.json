@@ -54,7 +54,7 @@
     "membership.accept-invitation": "초대 수락",
     "membership.accept.notification-title": "이제 <strong>%1</strong> 그룹의 멤버입니다",
     "membership.invitation-pending": "초대 대기 중",
-    "membership.join-group": "그룹 가입",
+    "membership.enroll-class": "그룹 가입",
     "membership.leave-group": "그룹 탈퇴",
     "membership.leave.notification-title": "<strong>%1</strong> 님이 <strong>%2</strong> 그룹을 탈퇴했습니다",
     "membership.reject": "거부",

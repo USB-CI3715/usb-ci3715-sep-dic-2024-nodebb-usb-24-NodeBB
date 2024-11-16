@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Prihvati pozivnicu",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "Pozivnica na čekanju",
-    "membership.join-group": "Priključi se u grupu",
+    "membership.enroll-class": "Priključi se u grupu",
     "membership.leave-group": "Izađi iz grupe",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "Odbij",

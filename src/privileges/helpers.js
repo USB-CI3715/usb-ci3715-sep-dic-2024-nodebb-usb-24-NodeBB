@@ -139,6 +139,7 @@ helpers.getGroupPrivileges = async function (cid, groupPrivileges) {
 	groupNames = groups.ephemeralGroups.concat(groupNames);
 	moveToFront(groupNames, groups.BANNED_USERS);
 	moveToFront(groupNames, 'Global Moderators');
+	moveToFront(groupNames, 'Teachers');
 	moveToFront(groupNames, 'unverified-users');
 	moveToFront(groupNames, 'verified-users');
 	moveToFront(groupNames, 'registered-users');

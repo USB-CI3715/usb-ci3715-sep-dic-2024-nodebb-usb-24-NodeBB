@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Приемане на поканата",
     "membership.accept.notification-title": "В момента сте член на <strong>%1</strong>",
     "membership.invitation-pending": "Чакаща покана",
-    "membership.join-group": "Присъединяване към групата",
+    "membership.enroll-class": "Присъединяване към групата",
     "membership.leave-group": "Напускане на групата",
     "membership.leave.notification-title": "<strong>%1</strong> напусна групата <strong>%2</strong>",
     "membership.reject": "Отхвърляне",

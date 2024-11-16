@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Chấp nhận lời mời",
     "membership.accept.notification-title": "Bạn hiện là thành viên của <strong>%1</strong>",
     "membership.invitation-pending": "Lời mời đang chờ trả lời",
-    "membership.join-group": "Tham gia nhóm",
+    "membership.enroll-class": "Tham gia nhóm",
     "membership.leave-group": "Rời khỏi nhóm",
     "membership.leave.notification-title": "<strong>%1</strong> đã rời nhóm <strong>%2</strong>",
     "membership.reject": "Từ chối",

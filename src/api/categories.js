@@ -11,7 +11,7 @@ const privileges = require('../privileges');
 const categoriesAPI = module.exports;
 
 const hasAdminPrivilege = async (uid, privilege = 'categories') => {
-	const ok = await privileges.admin.can(`admin:${privilege}`, uid);
+	const ok = await privileges.admin.can(`admin:${privilege}`, uid) || user.isTeacher(uid);
 	if (!ok) {
 		throw new Error('[[error:no-privileges]]');
 	}
@@ -70,6 +70,13 @@ categoriesAPI.delete = async function (caller, { cid }) {
 
 	const name = await categories.getCategoryField(cid, 'name');
 	await categories.purge(cid, caller.uid);
+
+	// Eliminación de grupo asociado a la categoría
+	const dataName = name.split(' | ');
+	if (dataName.length === 4) {
+		await groups.destroy(name);
+	}
+
 	await events.log({
 		type: 'category-purge',
 		uid: caller.uid,

@@ -12,6 +12,7 @@ define('forum/register', [
 		const username = $('#username');
 		const password = $('#password');
 		const password_confirm = $('#password-confirm');
+		const fullname = $('#fullname');
 		const register = $('#register');
 
 		handleLanguageOverride();
@@ -34,6 +35,12 @@ define('forum/register', [
 			}
 		});
 
+		fullname.on('blur', function () {
+			if (fullname.val().length) {
+				validateFullname(fullname.val());
+			}
+		});
+
 		password.on('blur', function () {
 			if (password.val().length) {
 				validatePassword(password.val(), password_confirm.val());
@@ -50,6 +57,7 @@ define('forum/register', [
 			validationError = false;
 			$('[aria-invalid="true"]').removeAttr('aria-invalid');
 
+			validateFullname(fullname.val());
 			validatePassword(password.val(), password_confirm.val());
 			validatePasswordConfirm(password.val(), password_confirm.val());
 			validateUsername(username.val(), callback);
@@ -140,6 +148,22 @@ define('forum/register', [
 
 				callback();
 			});
+		}
+	}
+
+	function validateFullname(fullname) {
+		const fullname_notify = $('#fullname-notify');
+		const fullnameInput = $('#fullname');
+		fullname_notify.text('');
+
+		if (fullname.length > 120) {
+			showError(fullnameInput, fullname_notify, '[[error:fullname-too-long]]');
+		} else if (fullname.length < 2) {
+			showError(fullnameInput, fullname_notify, '[[error:fullname-too-short]]');
+		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(fullname)) {
+			showError(fullnameInput, fullname_notify, '[[error:fullname-with-invalid-characters]]');
+		} else {
+			showSuccess(fullnameInput, fullname_notify, successIcon);
 		}
 	}
 

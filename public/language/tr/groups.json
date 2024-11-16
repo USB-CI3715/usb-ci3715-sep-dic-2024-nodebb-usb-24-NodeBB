@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Daveti Kabul Et",
     "membership.accept.notification-title": "<strong>%1</strong> grubunun üyesi oldunuz!",
     "membership.invitation-pending": "Davet beklemede",
-    "membership.join-group": "Gruba Katıl",
+    "membership.enroll-class": "Gruba Katıl",
     "membership.leave-group": "Gruptan Ayrıl",
     "membership.leave.notification-title": "<strong>%1</strong> kullanıcısı şu gruptan ayrıldı: <strong>%2</strong>",
     "membership.reject": "Reddet",

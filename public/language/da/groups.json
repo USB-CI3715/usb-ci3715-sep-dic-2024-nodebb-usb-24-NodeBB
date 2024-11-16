@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Acceptér Invitation",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "Afventende Invitationer",
-    "membership.join-group": "Bliv medlem af gruppe",
+    "membership.enroll-class": "Bliv medlem af gruppe",
     "membership.leave-group": "Forlad Gruppe",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "Afvis",

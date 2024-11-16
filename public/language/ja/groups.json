@@ -54,7 +54,7 @@
     "membership.accept-invitation": "招待を受ける",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "招待を保留",
-    "membership.join-group": "グループへ参加",
+    "membership.enroll-class": "グループへ参加",
     "membership.leave-group": "グループから離脱",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "拒否",

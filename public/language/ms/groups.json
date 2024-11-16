@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Terima Jemputan",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "Jemputan Menunggu",
-    "membership.join-group": "Masuk Kumpulan",
+    "membership.enroll-class": "Masuk Kumpulan",
     "membership.leave-group": "Keluar Kumpulan",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "Tolak",

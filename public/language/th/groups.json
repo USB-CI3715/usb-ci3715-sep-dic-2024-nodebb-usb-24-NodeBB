@@ -54,7 +54,7 @@
     "membership.accept-invitation": "ยอมรับคำเชิญ",
     "membership.accept.notification-title": "ตอนนี้คุณเป็นสมาชิกของ <strong>%1</strong>",
     "membership.invitation-pending": "คำเชิญที่รอการอนุมัติ",
-    "membership.join-group": "เข้าร่วมกลุ่ม",
+    "membership.enroll-class": "เข้าร่วมกลุ่ม",
     "membership.leave-group": "ออกจากกลุ่ม",
     "membership.leave.notification-title": "<strong>%1</strong> ได้ออกจากกลุ่ม <strong>%2</strong>",
     "membership.reject": "ปฏิเสธ",

@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Meghívás elfogadása",
     "membership.accept.notification-title": "Most már a tagja vagy a(z) <strong>%1</strong>",
     "membership.invitation-pending": "Függőben levő meghívás",
-    "membership.join-group": "Csoporthoz csatlakozás",
+    "membership.enroll-class": "Csoporthoz csatlakozás",
     "membership.leave-group": "Csoport elhagyása",
     "membership.leave.notification-title": "<strong>%1</strong> elhagyta a csoportot <strong>%2</strong>",
     "membership.reject": "Elutasítás",

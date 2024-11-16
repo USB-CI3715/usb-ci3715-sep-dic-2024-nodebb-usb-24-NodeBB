@@ -157,6 +157,11 @@ User.isAdministrator = async function (uid) {
 	return await privileges.users.isAdministrator(uid);
 };
 
+// Inclusion de funcion validacion de profesor.
+User.isTeacher = async function (uid) {
+	return await privileges.users.isTeacher(uid);
+};
+
 User.isGlobalModerator = async function (uid) {
 	return await privileges.users.isGlobalModerator(uid);
 };

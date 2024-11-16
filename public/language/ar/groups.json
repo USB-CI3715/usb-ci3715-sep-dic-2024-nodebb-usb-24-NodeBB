@@ -54,7 +54,7 @@
     "membership.accept-invitation": "اقبل الدعوة",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "الدعوة بانتظار القبول",
-    "membership.join-group": "انظم للمجموعة",
+    "membership.enroll-class": "انظم للمجموعة",
     "membership.leave-group": "غادر المجموعة",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "رفض",

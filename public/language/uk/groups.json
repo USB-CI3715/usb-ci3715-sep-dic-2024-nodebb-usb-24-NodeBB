@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Прийняти запрошення",
     "membership.accept.notification-title": "Тепер ви є членом <strong>%1</strong>",
     "membership.invitation-pending": "Запрошення в черзі",
-    "membership.join-group": "Приєднатися до групи",
+    "membership.enroll-class": "Приєднатися до групи",
     "membership.leave-group": "Покинути групу",
     "membership.leave.notification-title": "<strong>%1</strong> покинув групу <strong>%2</strong>",
     "membership.reject": "Відхилити",

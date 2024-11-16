@@ -54,7 +54,7 @@
     "membership.accept-invitation": "קבל הזמנה",
     "membership.accept.notification-title": "אתה עכשיו חבר ב<strong>%1</strong>",
     "membership.invitation-pending": "הזמנה ממתינה",
-    "membership.join-group": "הצטרף לקבוצה",
+    "membership.enroll-class": "הצטרף לקבוצה",
     "membership.leave-group": "עזוב קבוצה",
     "membership.leave.notification-title": "<strong>%1</strong> עזב את קבוצת <strong>%2</strong>",
     "membership.reject": "דחה",

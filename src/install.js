@@ -264,18 +264,32 @@ async function enableDefaultTheme() {
 async function createDefaultUserGroups() {
 	const groups = require('./groups');
 	async function createGroup(name) {
-		await groups.create({
-			name: name,
-			hidden: 1,
-			private: 1,
-			system: 1,
-			disableLeave: 1,
-			disableJoinRequests: 1,
-		});
+		if (name === 'Teachers') {
+			await groups.create({
+				name: name,
+				userTitle: 'Teacher',
+				description: 'List of Professors',
+				hidden: 0,
+				private: 1,
+				system: 1,
+				disableLeave: 1,
+				disableJoinRequests: 1,
+			});
+			await groups.show('Teachers');
+		} else {
+			await groups.create({
+				name: name,
+				hidden: 1,
+				private: 1,
+				system: 1,
+				disableLeave: 1,
+				disableJoinRequests: 1,
+			});
+		}
 	}
 
-	const [verifiedExists, unverifiedExists, bannedExists] = await groups.exists([
-		'verified-users', 'unverified-users', 'banned-users',
+	const [verifiedExists, unverifiedExists, bannedExists, teachersExists] = await groups.exists([
+		'verified-users', 'unverified-users', 'banned-users', 'Teachers',
 	]);
 	if (!verifiedExists) {
 		await createGroup('verified-users');
@@ -287,6 +301,9 @@ async function createDefaultUserGroups() {
 
 	if (!bannedExists) {
 		await createGroup('banned-users');
+	}
+	if (!teachersExists) {
+		await createGroup('Teachers');
 	}
 }
 

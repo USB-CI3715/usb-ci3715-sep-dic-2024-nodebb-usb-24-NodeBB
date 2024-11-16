@@ -54,7 +54,7 @@
     "membership.accept-invitation": "接受邀請",
     "membership.accept.notification-title": "你現在是 <strong>%1</strong>的成員了",
     "membership.invitation-pending": "邀請中",
-    "membership.join-group": "加入群組",
+    "membership.enroll-class": "加入群組",
     "membership.leave-group": "退出群組",
     "membership.leave.notification-title": "<strong>%1</strong> 退出了群組：<strong>%2</strong>",
     "membership.reject": "拒絕",

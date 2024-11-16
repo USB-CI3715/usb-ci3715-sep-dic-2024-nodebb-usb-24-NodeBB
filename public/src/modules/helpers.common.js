@@ -33,6 +33,8 @@ module.exports = function (utils, Benchpress, relative_path) {
 		humanReadableNumber,
 		formattedNumber,
 		generatePlaceholderWave,
+		showGroupNameDetails,
+		showGroupNameList,
 		register,
 		__escape: identity,
 	};
@@ -171,7 +173,7 @@ module.exports = function (utils, Benchpress, relative_path) {
 		} else if (groupObj.isInvited) {
 			return `<button class="btn btn-warning" data-action="rejectInvite" data-group="${groupObj.displayName}">[[groups:membership.reject]]</button><button class="btn btn-success" data-action="acceptInvite" data-group="${groupObj.name}"><i class="fa fa-plus"></i> [[groups:membership.accept-invitation]]</button>`;
 		} else if (!groupObj.disableJoinRequests && groupObj.name !== 'administrators') {
-			return `<button class="btn btn-success ${btnClass}" data-action="join" data-group="${groupObj.displayName}"><i class="fa fa-plus"></i> [[groups:membership.join-group]]</button>`;
+			return `<button class="btn btn-success ${btnClass}" data-action="join" data-group="${groupObj.displayName}"><i class="fa fa-plus"></i> [[groups:membership.enroll-class]]</button>`;
 		}
 		return '';
 	}
@@ -379,6 +381,25 @@ module.exports = function (utils, Benchpress, relative_path) {
 		});
 
 		return html;
+	}
+
+	function showGroupNameDetails(groupName, membersObj) {
+		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
+			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
+		}
+		const groupCreator = membersObj.members.filter(member => member.uid === membersObj.creatorUid);
+
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${groupCreator[0].fullname}</div>`;
+	}
+
+	function showGroupNameList(groupName, membersObj) {
+		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
+			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
+		}
+
+		const groupCreator = membersObj.members.filter(member => member.uid === membersObj.creatorUid);
+
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${groupCreator[0].fullname}</div>`;
 	}
 
 	function register() {

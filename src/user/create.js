@@ -46,11 +46,12 @@ module.exports = function (User) {
 		let userData = {
 			username: data.username,
 			userslug: data.userslug,
+			fullname: data.fullname,
 			joindate: timestamp,
 			lastonline: timestamp,
 			status: 'online',
 		};
-		['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
+		['picture', 'location', 'birthday'].forEach((field) => {
 			if (data[field]) {
 				userData[field] = data[field];
 			}
@@ -97,7 +98,8 @@ module.exports = function (User) {
 			db.incrObjectField('global', 'userCount'),
 			analytics.increment('registrations'),
 			db.sortedSetAddBulk(bulkAdd),
-			groups.join(['registered-users', 'unverified-users'], userData.uid),
+			// Creacion de estudiantes o profesores
+			data.isProfessor ? groups.join(['registered-users', 'unverified-users', 'Teachers'], userData.uid) : groups.join(['registered-users', 'unverified-users'], userData.uid),
 			User.notifications.sendWelcomeNotification(userData.uid),
 			storePassword(userData.uid, data.password),
 			User.updateDigestSetting(userData.uid, meta.config.dailyDigestFreq),

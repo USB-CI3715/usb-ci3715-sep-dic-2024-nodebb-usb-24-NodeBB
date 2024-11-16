@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Emera Ubutumire",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "Ubutumire Buracyategereje",
-    "membership.join-group": "Injira mu Itsinda",
+    "membership.enroll-class": "Injira mu Itsinda",
     "membership.leave-group": "Va mu Itsinda",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "Hakanira",

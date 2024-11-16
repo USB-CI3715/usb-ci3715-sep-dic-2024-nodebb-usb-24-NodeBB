@@ -15,6 +15,11 @@ privsUsers.isAdministrator = async function (uid) {
 	return await isGroupMember(uid, 'administrators');
 };
 
+// Inclusion de validacion de privilegios de profesor.
+privsUsers.isTeacher = async function (uid) {
+	return await isGroupMember(uid, 'Teachers');
+};
+
 privsUsers.isGlobalModerator = async function (uid) {
 	return await isGroupMember(uid, 'Global Moderators');
 };
@@ -78,15 +83,17 @@ privsUsers.canEdit = async function (callerUid, uid) {
 		return true;
 	}
 
-	const [isAdmin, isGlobalMod, isTargetAdmin, isUserAllowedTo] = await Promise.all([
+	const [isAdmin, isGlobalMod, isTargetAdmin, isUserAllowedTo, isTeacher] = await Promise.all([
 		privsUsers.isAdministrator(callerUid),
 		privsUsers.isGlobalModerator(callerUid),
 		privsUsers.isAdministrator(uid),
 		helpers.isAllowedTo('admin:users', callerUid, [0]),
+		privsUsers.isTeacher(uid),
 	]);
 	const canManageUsers = isUserAllowedTo[0];
 	const data = await plugins.hooks.fire('filter:user.canEdit', {
 		isAdmin: isAdmin,
+		isTeacher: isTeacher,
 		isGlobalMod: isGlobalMod,
 		isTargetAdmin: isTargetAdmin,
 		canManageUsers: canManageUsers,
@@ -146,6 +153,35 @@ privsUsers.canFlag = async function (callerUid, uid) {
 privsUsers.hasBanPrivilege = async uid => await hasGlobalPrivilege('ban', uid);
 privsUsers.hasMutePrivilege = async uid => await hasGlobalPrivilege('mute', uid);
 privsUsers.hasInvitePrivilege = async uid => await hasGlobalPrivilege('invite', uid);
+
+privsUsers.hasGroupPerms = async function (uid, groups) {
+	const [isAdmin, isGlobalMod, isTeacher] = await Promise.all([
+		user.isAdministrator(uid),
+		user.isGlobalModerator(uid),
+		user.isTeacher(uid),
+	]);
+
+	let list = true;
+
+	if (!Array.isArray(groups)) {
+		list = false;
+		groups = [groups];
+	} else {
+		groups = groups.map(group => group.name);
+	}
+
+	const groupsFiltered = groups.map(groupName => isAdmin ||
+		(
+			!(groupName === 'administrators') && (
+				isGlobalMod || (
+					!(groupName === 'Global Moderators') &&
+					(isTeacher || !(groupName === 'Teachers'))
+				)
+			)
+		));
+
+	return (list) ? groupsFiltered : groupsFiltered[0];
+};
 
 async function hasGlobalPrivilege(privilege, uid) {
 	const privsGlobal = require('./global');

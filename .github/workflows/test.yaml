@@ -1,4 +1,4 @@
-name: Lint and test
+name: Lint and Test
 
 on:
   pull_request:
@@ -77,11 +77,11 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Node tests
+      - name: Node Tests
         run: npm test
 
-      - name: Extract coverage info
+      - name: Test Coverage
         run: npm run coverage
 
-      - name: Test coverage
+      - name: Extract Coverage Info
         uses: coverallsapp/github-action@v2

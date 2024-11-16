@@ -24,6 +24,7 @@ const _privilegeMap = new Map([
 	['signature', { label: '[[admin/manage/privileges:signature]]', type: 'posting' }],
 	['invite', { label: '[[admin/manage/privileges:invite]]', type: 'posting' }],
 	['group:create', { label: '[[admin/manage/privileges:allow-group-creation]]', type: 'posting' }],
+	['group:create', { label: '[[teachers/manage/privileges:allow-group-creation]]', type: 'posting' }],
 	['search:content', { label: '[[admin/manage/privileges:search-content]]', type: 'viewing' }],
 	['search:users', { label: '[[admin/manage/privileges:search-users]]', type: 'viewing' }],
 	['search:tags', { label: '[[admin/manage/privileges:search-tags]]', type: 'viewing' }],
@@ -107,13 +108,14 @@ privsGlobal.get = async function (uid) {
 
 privsGlobal.can = async function (privilege, uid) {
 	const isArray = Array.isArray(privilege);
-	const [isAdministrator, isUserAllowedTo] = await Promise.all([
+	const [isAdministrator, isTeacher, isUserAllowedTo] = await Promise.all([
 		user.isAdministrator(uid),
+		user.isTeacher(uid),
 		helpers.isAllowedTo(isArray ? privilege : [privilege], uid, 0),
 	]);
 	return isArray ?
-		isUserAllowedTo.map(allowed => isAdministrator || allowed) :
-		isAdministrator || isUserAllowedTo[0];
+		isUserAllowedTo.map(allowed => isAdministrator || isTeacher || allowed) :
+		isAdministrator || isTeacher || isUserAllowedTo[0];
 };
 
 privsGlobal.canGroup = async function (privilege, groupName) {

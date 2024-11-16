@@ -54,7 +54,7 @@
     "membership.accept-invitation": "Pieņemt ielūgumu",
     "membership.accept.notification-title": "You are now a member of <strong>%1</strong>",
     "membership.invitation-pending": "Neapstiprināts ielūgums",
-    "membership.join-group": "Pievienoties grupai",
+    "membership.enroll-class": "Pievienoties grupai",
     "membership.leave-group": "Atstāt grupu",
     "membership.leave.notification-title": "<strong>%1</strong> has left group <strong>%2</strong>",
     "membership.reject": "Noraidīt",
